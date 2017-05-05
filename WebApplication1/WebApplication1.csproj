@@ -239,20 +239,40 @@
     <Compile Include="Controllers\Position2Controller.cs" />
     <Compile Include="Controllers\PositionController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Extensions\IDataRecordExtensions.cs" />
+    <Compile Include="Extensions\IDbCommandExtensions.cs" />
+    <Compile Include="Extensions\ListToDatasetExtension.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Map_User_Driving_Data.cs" />
+    <Compile Include="Interfaces\IConnectionFactory.cs" />
+    <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Coordinate.cs" />
+    <Compile Include="Models\DB\Event_Type.cs" />
+    <Compile Include="Models\DB\User_Driving_Data.cs" />
+    <Compile Include="Models\DB\User_Driving_Events.cs" />
+    <Compile Include="Models\Driving_Data.cs" />
     <Compile Include="Models\Gravity.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\MagneticField.cs" />
     <Compile Include="Models\position1.cs" />
     <Compile Include="Models\PositionData1.cs" />
     <Compile Include="Models\RotationRate.cs" />
+    <Compile Include="Models\DB\User.cs" />
     <Compile Include="Models\UserAcceleration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
+    <Compile Include="Repositories\DbConfigs\DbConnectionFactory.cs" />
+    <Compile Include="Repositories\DbConfigs\DbContext.cs" />
+    <Compile Include="Repositories\DbConfigs\DbUnitOfWork.cs" />
+    <Compile Include="Repositories\Event_TypesRepository.cs" />
+    <Compile Include="Repositories\Repository.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="Repositories\User_Driving_DataRepository.cs" />
+    <Compile Include="Repositories\User_Driving_EventsRepository.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -298,7 +318,9 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

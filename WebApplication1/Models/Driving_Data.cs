@@ -5,9 +5,11 @@ using System.Web;
 
 namespace WebApplication1.Models
 {
-    public class PositionData1
+    public class Driving_Data
     {
-        public string userID { get; set; }
+
+
+        public int userID { get; set; }
         public double speedLimit { get; set; }
         public string streetName { get; set; }
         public double speed { get; set; }
@@ -39,6 +41,5 @@ namespace WebApplication1.Models
         //public RotationRate rotationRate;
 
         //public MagneticField magneticField;
-
     }
 }
