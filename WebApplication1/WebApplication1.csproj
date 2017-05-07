@@ -85,6 +85,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
@@ -245,7 +246,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\LoginHelpers.cs" />
-    <Compile Include="Helpers\Map_User_Driving_Data.cs" />
+    <Compile Include="Helpers\Map_User_Driving_Data_Helper.cs" />
     <Compile Include="Interfaces\IConnectionFactory.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />

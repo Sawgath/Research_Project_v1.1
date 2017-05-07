@@ -15,9 +15,9 @@ namespace WebApplication1.Models.DB
         public int Age { get; set; }
         public string Gender { get; set; }
 
-        public string Active { get; set; }
+        public int Active { get; set; }
         public string ActiveStartTime { get; set; }
 
-
+        public string CreatedTime { get; set; }
     }
 }

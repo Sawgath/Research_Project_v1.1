@@ -27,6 +27,11 @@ namespace WebApplication1
             );
 
             //config.Routes.MapHttpRoute(
+            //    name: "DefaultApiWithId", 
+            //    routeTemplate: "Api/{controller}/{id}", 
+            //    defaults: new { id = RouteParameter.Optional }, new { id = @"\d+" });
+
+            //config.Routes.MapHttpRoute(
             //    name: "Position2Api",
             //    routeTemplate: "api/Position2/{id}",
             //    defaults: new { controller = new string[] { "Position2" , "Login" }, id = RouteParameter.Optional }

@@ -37,7 +37,7 @@ namespace WebApplication1.Repositories
 
                 command.Parameters.Add(command.CreateParameter("User_Id", tentity.User_Id));
                 command.Parameters.Add(command.CreateParameter("Password", tentity.Password));
-                command.Parameters.Add(command.CreateParameter("Active", (tentity.Active == "YES") ? 1 : 0 ));
+                command.Parameters.Add(command.CreateParameter("Active", tentity.Active));
                 command.Parameters.Add(command.CreateParameter("ActiveStartTime", tentity.ActiveStartTime));
 
 
@@ -58,11 +58,7 @@ namespace WebApplication1.Repositories
                 command.Parameters.Add(command.CreateParameter("User_Id", tentity.User_Id));
                 command.Parameters.Add(command.CreateParameter("Password", tentity.Password));
     
-        
-
                 int i = this.ToList(command).Count();
-
-
 
                 if(i == 1)
                 {
@@ -76,6 +72,15 @@ namespace WebApplication1.Repositories
 
             }
 
+        }
+
+        public new IList<User> GetAll()
+        {
+            using (var command = _context.CreateCommand())
+            {
+                command.CommandText = @"SELECT * FROM [dbo].[User]";
+                return ToList(command).ToList();
+            }
         }
     }
 }

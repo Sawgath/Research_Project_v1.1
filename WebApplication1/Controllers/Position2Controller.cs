@@ -6,10 +6,12 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using WebApplication1.Models;
+using WebApplication1.Models.DB;
 using WebApplication1.Helpers;
 
 namespace WebApplication1.Controllers
 {
+
     public class Position2Controller : ApiController
     {
 
@@ -59,19 +61,22 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public void post(Driving_Data alist)
         {
+            
 
-            Map_User_Driving_Data aMap = new Map_User_Driving_Data();
+            Map_User_Driving_Data_Helper aMap = new Map_User_Driving_Data_Helper();
             aMap.Map_data(alist);
 
 
         }
 
-
-        //[HttpPost]
-        //public void post(string jsonString)
-        //{
-        //   // PositionData1 deserializedProduct = JsonConvert.DeserializeObject<PositionData1>(jsonString);
-        //}
+        [Route("api/Position2/{id}")]
+        [HttpGet]
+        public IList<User> Get(int id)
+        {
+            var helper = new Map_User_Driving_Data_Helper();
+            var list = helper.getAllUserData();
+            return list;
+        }
 
     }
 }

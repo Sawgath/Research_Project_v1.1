@@ -19,7 +19,7 @@ namespace WebApplication1.Helpers
 
             aUser.User_Id = alogin.User_Id;
             aUser.Password = alogin.Password;
-            aUser.Active = alogin.Active;
+            aUser.Active = (alogin.Active == "YES") ? 1 : 0;
             aUser.ActiveStartTime = DateTime.UtcNow.ToString("o");
 
 
