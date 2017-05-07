@@ -20,17 +20,17 @@ namespace WebApplication1
             // Web API routes
             config.MapHttpAttributeRoutes();
 
-            //config.Routes.MapHttpRoute(
-            //    name: "DefaultApi",
-            //    routeTemplate: "api/{controller}/{id}",
-            //    defaults: new { id = RouteParameter.Optional }
-            //);
-
             config.Routes.MapHttpRoute(
-                name: "Position2Api",
-                routeTemplate: "api/Position2/{id}",
-                defaults: new { controller = "Position2", id = RouteParameter.Optional }
+                name: "DefaultApi",
+                routeTemplate: "api/{controller}/{id}",
+                defaults: new { id = RouteParameter.Optional }
             );
+
+            //config.Routes.MapHttpRoute(
+            //    name: "Position2Api",
+            //    routeTemplate: "api/Position2/{id}",
+            //    defaults: new { controller = new string[] { "Position2" , "Login" }, id = RouteParameter.Optional }
+            //);
         }
     }
 }

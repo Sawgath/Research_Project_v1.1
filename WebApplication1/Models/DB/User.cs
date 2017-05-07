@@ -14,5 +14,10 @@ namespace WebApplication1.Models.DB
         public string Email { get; set; }
         public int Age { get; set; }
         public string Gender { get; set; }
+
+        public string Active { get; set; }
+        public string ActiveStartTime { get; set; }
+
+
     }
 }

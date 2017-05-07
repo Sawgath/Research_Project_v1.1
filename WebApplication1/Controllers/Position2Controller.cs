@@ -22,7 +22,7 @@ namespace WebApplication1.Controllers
             p1.userID = "1";
             p1.streetName = "yoyo";
             p1.speedLimit = 90.00 ;
-            p1.datetime = "12/12/12";
+            p1.datetime = "2009-05-01T14:18:12.430";
             p1.speed = 67;
             p1.course = 170;
             p1.gravity = new Gravity(2.4 ,1.2 ,0.001);
@@ -36,7 +36,9 @@ namespace WebApplication1.Controllers
             p2.userID = "1";
             p2.streetName = "y3o";
             p2.speedLimit = 30.00;
-            p2.datetime = DateTime.Now.ToString();
+            //DateTime adateTime= DateTime.UtcNow;
+            //p2.datetime = Serialize(adateTime.ToString("yyyy-MM-dd'T'HH:mm:ss.fffffffzzz"));
+            p2.datetime = DateTime.UtcNow.ToString("o");
             p2.speed = 90;
             p2.course = 130;
             p2.gravity = new Gravity(21.3, 3.2, 0.031);
@@ -52,9 +54,6 @@ namespace WebApplication1.Controllers
             return p2;
 
 
-
-
-
         }
 
         [HttpPost]
@@ -63,8 +62,6 @@ namespace WebApplication1.Controllers
 
             Map_User_Driving_Data aMap = new Map_User_Driving_Data();
             aMap.Map_data(alist);
-
-
 
 
         }

@@ -43,6 +43,12 @@ namespace WebApplication1.Helpers
         }
 
 
+        public bool CheckLoginData(User tentity)
+        {
 
+
+
+            throw new NotImplementedException();
+        }
     }
 }
