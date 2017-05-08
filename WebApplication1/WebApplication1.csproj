@@ -85,6 +85,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
@@ -235,9 +236,8 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\PersonController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\Position2Controller.cs" />
-    <Compile Include="Controllers\PositionController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Extensions\IDataRecordExtensions.cs" />
     <Compile Include="Extensions\IDbCommandExtensions.cs" />
@@ -245,24 +245,25 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\Map_User_Driving_Data.cs" />
+    <Compile Include="Helpers\LoginHelpers.cs" />
+    <Compile Include="Helpers\Map_User_Driving_Data_Helper.cs" />
     <Compile Include="Interfaces\IConnectionFactory.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\Coordinate.cs" />
+    <Compile Include="Models\JsonModel\Coordinate.cs" />
     <Compile Include="Models\DB\Event_Type.cs" />
     <Compile Include="Models\DB\User_Driving_Data.cs" />
     <Compile Include="Models\DB\User_Driving_Events.cs" />
-    <Compile Include="Models\Driving_Data.cs" />
-    <Compile Include="Models\Gravity.cs" />
+    <Compile Include="Models\JsonModel\Driving_Data.cs" />
+    <Compile Include="Models\JsonModel\Gravity.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\MagneticField.cs" />
-    <Compile Include="Models\position1.cs" />
-    <Compile Include="Models\PositionData1.cs" />
-    <Compile Include="Models\RotationRate.cs" />
+    <Compile Include="Models\JsonModel\MagneticField.cs" />
+    <Compile Include="Models\JsonModel\PositionData1.cs" />
+    <Compile Include="Models\JsonModel\RotationRate.cs" />
     <Compile Include="Models\DB\User.cs" />
-    <Compile Include="Models\UserAcceleration.cs" />
+    <Compile Include="Models\JsonModel\UserAcceleration.cs" />
+    <Compile Include="Models\JsonModel\LoginData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Repositories\DbConfigs\DbConnectionFactory.cs" />

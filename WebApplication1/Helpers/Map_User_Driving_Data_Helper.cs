@@ -8,7 +8,7 @@ using WebApplication1.Repositories;
 
 namespace WebApplication1.Helpers
 {
-    public class Map_User_Driving_Data
+    public class Map_User_Driving_Data_Helper
     {
         
 
@@ -42,7 +42,21 @@ namespace WebApplication1.Helpers
             arepo.Insert(aDrivingData);
         }
 
+        public IList<User> getAllUserData()
+        {
+            var factory = new DbConnectionFactory("testDatabase");
+            var context = new DbContext(factory);
+            var arepo = new UserRepository(context);
+            return arepo.GetAll();
+        }
 
 
+        public bool CheckLoginData(User tentity)
+        {
+
+
+
+            throw new NotImplementedException();
+        }
     }
 }
