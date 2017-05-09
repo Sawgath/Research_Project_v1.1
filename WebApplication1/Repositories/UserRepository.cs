@@ -20,7 +20,18 @@ namespace WebApplication1.Repositories
 
         public override User Insert(User tentity)
         {
-            throw new NotImplementedException();
+            using (var command = _context.CreateCommand())
+            {
+                command.CommandText = @"INSERT INTO [dbo].[User] VALUES (@Username,@Password,@Email,@Age,@Gender,@Salt)";
+                command.Parameters.Add(command.CreateParameter("Password", tentity.Password));
+                command.Parameters.Add(command.CreateParameter("Username", tentity.UserName));
+                command.Parameters.Add(command.CreateParameter("Gender", tentity.Gender));
+                command.Parameters.Add(command.CreateParameter("Age", tentity.Age));
+                command.Parameters.Add(command.CreateParameter("Email", tentity.Email));
+                command.Parameters.Add(command.CreateParameter("UserId", tentity.User_Id));
+                command.Parameters.Add(command.CreateParameter("Salt", tentity.Salt));
+                return this.ToList(command).FirstOrDefault();
+            }
         }
 
         public override User Update(User tentity)
@@ -37,8 +48,8 @@ namespace WebApplication1.Repositories
 
                 command.Parameters.Add(command.CreateParameter("User_Id", tentity.User_Id));
                 command.Parameters.Add(command.CreateParameter("Password", tentity.Password));
-                command.Parameters.Add(command.CreateParameter("Active", tentity.Active));
-                command.Parameters.Add(command.CreateParameter("ActiveStartTime", tentity.ActiveStartTime));
+                //command.Parameters.Add(command.CreateParameter("Active", tentity.Active));
+                //command.Parameters.Add(command.CreateParameter("ActiveStartTime", tentity.ActiveStartTime));
 
 
                 return this.ToList(command).FirstOrDefault();
@@ -70,6 +81,26 @@ namespace WebApplication1.Repositories
                 }
                 
 
+            }
+
+        }
+        public IList<User> CheckExistingUser(string email)
+        {
+            using (var command = _context.CreateCommand())
+            {
+                command.CommandText = "SELECT * FROM [dbo].[User] where [Email]= @Email";
+                command.Parameters.Add(command.CreateParameter("Email", email));
+                return ToList(command).ToList();
+            }
+
+        }
+        public IList<User> ExistingUser(string UserName)
+        {
+            using (var command = _context.CreateCommand())
+            {
+                command.CommandText = "SELECT * FROM [dbo].[User] where [UserName]= @UserName";
+                command.Parameters.Add(command.CreateParameter("UserName", UserName));
+                return ToList(command).ToList();
             }
 
         }
