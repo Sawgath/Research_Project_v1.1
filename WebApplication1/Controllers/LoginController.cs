@@ -11,7 +11,7 @@ using WebApplication1.Helpers;
 using JWT;
 using JWT.Serializers;
 using JWT.Algorithms;
-
+using System.Web.Script.Serialization;
 
 namespace WebApplication1.Controllers
 {
@@ -27,9 +27,7 @@ namespace WebApplication1.Controllers
             alogin.Active = "YES";
             return alogin;
         }
-
-
-
+        //[Route("api/Login/signin")]
         [HttpPost]
         public HttpResponseMessage Login(UserLogin model)
         {
@@ -86,6 +84,10 @@ namespace WebApplication1.Controllers
             IJwtEncoder encoder = new JwtEncoder(algorithm, serializer, urlEncoder);
             var token = encoder.Encode(payload, secret);
             dbUser = new { user.User_Id, user.UserName };
+            //var jsonSerializer = new JavaScriptSerializer();
+            //var jsonPayload = JWT.JsonWebToken.Decode(token,secret);
+            //var payloadData = jsonSerializer.Deserialize<Dictionary<string, object>>(jsonPayload);
+            //return payloadData;
             return token;
         }
         public static string EncryptPassword(string password, string salt)

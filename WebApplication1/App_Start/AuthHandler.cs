@@ -10,8 +10,11 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Script.Serialization;
 using JWT;
+using JWT.Algorithms;
+using JWT.Serializers;
+using System.Text;
 
-namespace JwtWebApi
+namespace WebApplication1
 {
     public class AuthHandler : DelegatingHandler
     {
@@ -61,13 +64,21 @@ namespace JwtWebApi
                 : base.SendAsync(request, cancellationToken);
         }
 
-        private static ClaimsPrincipal ValidateToken(string token, string secret, bool checkExpiration)
+        public static ClaimsPrincipal ValidateToken(string token, string secret, bool checkExpiration)
         {
-            var jsonSerializer = new JavaScriptSerializer();
-            var payloadJson = JsonWebToken.Decode(token, secret);
-            var payloadData = jsonSerializer.Deserialize<Dictionary<string, object>>(payloadJson);
+            //var toBytes= Encoding.UTF8.GetBytes(secret);
+            //var jsonSerializer = new JavaScriptSerializer();
+            //var jsonPayload = JWT.JsonWebToken.Decode(token, secret);
+            //var payloadData = jsonSerializer.Deserialize<Dictionary<string, object>>(jsonPayload);
 
+            IJsonSerializer serializer = new JsonNetSerializer();
+            IDateTimeProvider provider = new UtcDateTimeProvider();
+            IJwtValidator validator = new JwtValidator(serializer, provider);
+            IBase64UrlEncoder urlEncoder = new JwtBase64UrlEncoder();
+            IJwtDecoder decoder = new JwtDecoder(serializer, validator, urlEncoder);
 
+            //var payloadJson = decoder.Decode(token, secret, verify: true);
+            var payloadData = serializer.Deserialize<Dictionary<string, object>>(payloadJson);
             object exp;
             if (payloadData != null && (checkExpiration && payloadData.TryGetValue("exp", out exp)))
             {
@@ -79,7 +90,7 @@ namespace JwtWebApi
                 }
             }
 
-            var subject = new ClaimsIdentity("Federation", ClaimTypes.Name, ClaimTypes.Role);
+            var subject = new ClaimsIdentity();
 
             var claims = new List<Claim>();
 
@@ -100,19 +111,19 @@ namespace JwtWebApi
 
                     switch (pair.Key)
                     {
-                        case "name":
+                        case "Username":
                             claims.Add(new Claim(ClaimTypes.Name, pair.Value.ToString(), ClaimValueTypes.String));
                             break;
-                        case "surname":
-                            claims.Add(new Claim(ClaimTypes.Surname, pair.Value.ToString(), ClaimValueTypes.String));
-                            break;
-                        case "email":
+                        case "userId":
                             claims.Add(new Claim(ClaimTypes.Email, pair.Value.ToString(), ClaimValueTypes.Email));
                             break;
-                        case "role":
+                        case "nbf":
                             claims.Add(new Claim(ClaimTypes.Role, pair.Value.ToString(), ClaimValueTypes.String));
                             break;
-                        case "userId":
+                        case "iat":
+                            claims.Add(new Claim(ClaimTypes.UserData, pair.Value.ToString(), ClaimValueTypes.Integer));
+                            break;
+                        case "exp":
                             claims.Add(new Claim(ClaimTypes.UserData, pair.Value.ToString(), ClaimValueTypes.Integer));
                             break;
                         default:
