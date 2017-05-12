@@ -11,30 +11,22 @@ namespace WebApplication1.Helpers
 {
     public class LoginHelpers
     {
-
-
         public void LoginHelper(LoginData alogin)
         {
             User aUser = new User();
-
             aUser.User_Id = alogin.User_Id;
             aUser.Password = alogin.Password;
             //aUser.Active = (alogin.Active == "YES") ? 1 : 0;
             //aUser.ActiveStartTime = DateTime.UtcNow.ToString("o");
-
-
             var factory = new DbConnectionFactory("testDatabase");
             var context = new DbContext(factory);
             UserRepository arepo = new UserRepository(context);
-
             //arepo.CheckLoginData(aUser);
             if (arepo.CheckLoginData(aUser))
             {
                 arepo.MakeActive(aUser);
 
             }
-
-
         }
         public IList<User> RegisterHelpers(UserRegister userdata)
         {
@@ -51,7 +43,6 @@ namespace WebApplication1.Helpers
             IList<User> existinguserlist= arepo.CheckExistingUser(user.Email).ToList();
             return existinguserlist;
         }
-
         public IList<User> CheckUser(UserLogin userdata)
         {
             User user = new User();
@@ -63,7 +54,6 @@ namespace WebApplication1.Helpers
             IList<User> existinguserlist = arepo.ExistingUser(user.UserName).ToList();
             return existinguserlist;
         }
-
         public void SaveNewUser(User NewUser)
         {
             var factory = new DbConnectionFactory("testDatabase");

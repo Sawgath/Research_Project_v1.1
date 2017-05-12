@@ -77,7 +77,7 @@ namespace WebApplication1
             IBase64UrlEncoder urlEncoder = new JwtBase64UrlEncoder();
             IJwtDecoder decoder = new JwtDecoder(serializer, validator, urlEncoder);
 
-            //var payloadJson = decoder.Decode(token, secret, verify: true);
+            var payloadJson = decoder.Decode(token, secret, verify: true);
             var payloadData = serializer.Deserialize<Dictionary<string, object>>(payloadJson);
             object exp;
             if (payloadData != null && (checkExpiration && payloadData.TryGetValue("exp", out exp)))

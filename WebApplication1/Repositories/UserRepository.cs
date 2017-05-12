@@ -79,8 +79,6 @@ namespace WebApplication1.Repositories
                 {
                     return false;
                 }
-                
-
             }
 
         }
@@ -104,7 +102,6 @@ namespace WebApplication1.Repositories
             }
 
         }
-
         public new IList<User> GetAll()
         {
             using (var command = _context.CreateCommand())

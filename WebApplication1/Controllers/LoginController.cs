@@ -83,7 +83,7 @@ namespace WebApplication1.Controllers
             IBase64UrlEncoder urlEncoder = new JwtBase64UrlEncoder();
             IJwtEncoder encoder = new JwtEncoder(algorithm, serializer, urlEncoder);
             var token = encoder.Encode(payload, secret);
-            dbUser = new { user.User_Id, user.UserName };
+            dbUser = new { user.UserName};
             //var jsonSerializer = new JavaScriptSerializer();
             //var jsonPayload = JWT.JsonWebToken.Decode(token,secret);
             //var payloadData = jsonSerializer.Deserialize<Dictionary<string, object>>(jsonPayload);

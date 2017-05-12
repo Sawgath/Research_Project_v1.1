@@ -15,7 +15,7 @@ namespace WebApplication1.Algorithims
             double dLon = (long2-long1);
             double y = Math.Sin(dLon) * Math.Cos(Driving_Data2.Latitude);
             double x = Math.Cos(Driving_Data1.Latitude) * Math.Sin(Driving_Data2.Latitude) - Math.Sin(Driving_Data1.Latitude)
-                        * Math.Cos(Driving_Data2.Latitude) * Math.Cos(dLon);
+                       * Math.Cos(Driving_Data2.Latitude) * Math.Cos(dLon);
             double brng = Math.Atan2(y, x);
             brng = RadianToDegree(brng);
             brng = (brng + 360) % 360;
@@ -23,12 +23,28 @@ namespace WebApplication1.Algorithims
             return brng;
         }
 
-        public bool Agreesive_Truning_based_Acceleration(User_Driving_Data Driving_Data)
+        public bool Agreesive_Left_Turining(User_Driving_Data Driving_Data)
         {
-            if(Driving_Data.)
+            if(Driving_Data.User_Acceleration_X > 0.2)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
-
-
+        public bool Agreesive_Right_Turining(User_Driving_Data Driving_Data)
+        {
+            if (Driving_Data.User_Acceleration_X < -0.2)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         public static double RadianToDegree(double radian)
         {
             return (180 / Math.PI) * radian;

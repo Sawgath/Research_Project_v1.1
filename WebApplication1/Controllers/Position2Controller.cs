@@ -59,6 +59,7 @@ namespace WebApplication1.Controllers
         {
             Map_User_Driving_Data_Helper aMap = new Map_User_Driving_Data_Helper();
             aMap.Map_data(alist);
+            
         }
 
         [Authorize]
