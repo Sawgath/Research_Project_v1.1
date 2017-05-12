@@ -10,8 +10,6 @@ namespace WebApplication1.Models
         public double x { get; set; }
         public double y { get; set; }
         public double z { get; set; }
-
-
         public UserAcceleration(double a, double b, double c)
         {
             x = a;

@@ -14,7 +14,7 @@ namespace WebApplication1.Controllers
 
     public class Position2Controller : ApiController
     {
-
+        [Authorize]
         public PositionData1 Get()
         {
             //[{"xData":"23","yData":"43","zData":"64"},{"xData":"233","yData":"443","zData":"634"}]
@@ -48,27 +48,20 @@ namespace WebApplication1.Controllers
             p2.magneticField = new MagneticField(23.23,23.4, 32.5);
             p2.userAcceleration = new UserAcceleration(32.23, 21.23, 34.23);
             p2.coordinate = new Coordinate(2.3, 23, 0.44);
-
             alist.Add(p1);
-
             alist.Add(p2);
-
             return p2;
-
-
         }
 
+        [Authorize]
         [HttpPost]
         public void post(Driving_Data alist)
         {
-            
-
             Map_User_Driving_Data_Helper aMap = new Map_User_Driving_Data_Helper();
             aMap.Map_data(alist);
-
-
         }
 
+        [Authorize]
         [Route("api/Position2/{id}")]
         [HttpGet]
         public IList<User> Get(int id)

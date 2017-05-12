@@ -7,7 +7,6 @@ namespace WebApplication1.Models.DB
 {
     public class User_Driving_Data
     {
-
       public int User_Id{get; set;}
       public int Session_Id{get; set;} 
       public int Data_Id{get; set;}
@@ -18,6 +17,9 @@ namespace WebApplication1.Models.DB
       public double Horizontal_Accuracy {get; set;}
       public double Speed {get; set;}
       public double TimeStamp {get; set;}
+      public double User_Acceleration_X { get; set; }
+      public double User_Acceleration_Y { get; set; }
+      public double User_Acceleration_Z { get; set; }
       public double Gravity_X {get; set;}
       public double Gravity_Y {get; set;}
       public double Gravity_Z {get; set;}
