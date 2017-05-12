@@ -13,6 +13,7 @@ namespace WebApplication1.Repositories
 
         public User_Driving_DataRepository(DbContext context) : base(context)
         {
+
         }
 
         public override User_Driving_Data Delete(User_Driving_Data tentity)
