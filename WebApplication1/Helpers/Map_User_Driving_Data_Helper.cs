@@ -11,7 +11,6 @@ namespace WebApplication1.Helpers
     public class Map_User_Driving_Data_Helper
     {
         
-
         public void Map_data(Driving_Data aData)
         {
             User_Driving_Data aDrivingData = new User_Driving_Data();
@@ -53,9 +52,6 @@ namespace WebApplication1.Helpers
 
         public bool CheckLoginData(User tentity)
         {
-
-
-
             throw new NotImplementedException();
         }
     }
