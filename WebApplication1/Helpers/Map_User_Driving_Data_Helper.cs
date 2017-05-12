@@ -10,8 +10,6 @@ namespace WebApplication1.Helpers
 {
     public class Map_User_Driving_Data_Helper
     {
-        
-
         public void Map_data(Driving_Data aData)
         {
             User_Driving_Data aDrivingData = new User_Driving_Data();
@@ -27,21 +25,20 @@ namespace WebApplication1.Helpers
             aDrivingData.Gravity_X = aData.gravity.x;
             aDrivingData.Gravity_Y = aData.gravity.y;
             aDrivingData.Gravity_Z = aData.gravity.z;
+            aDrivingData.User_Acceleration_X = aData.userAcceleration.x;
+            aDrivingData.User_Acceleration_Y = aData.userAcceleration.y;
+            aDrivingData.User_Acceleration_Z = aData.userAcceleration.z;
             aDrivingData.Rotation_Rate_X = aData.rotationRate.x;
             aDrivingData.Rotation_Rate_Y = aData.rotationRate.y;
             aDrivingData.Rotation_Rate_Z = aData.rotationRate.z;
             aDrivingData.Magnetic_Flied_X = aData.magneticField.x;
             aDrivingData.Magnetic_Field_Y = aData.magneticField.y;
             aDrivingData.Magnetic_Field_Z = aData.magneticField.z;
-
-
             var factory = new DbConnectionFactory("testDatabase");
             var context = new DbContext(factory);
             User_Driving_DataRepository arepo= new User_Driving_DataRepository(context);
-
             arepo.Insert(aDrivingData);
         }
-
         public IList<User> getAllUserData()
         {
             var factory = new DbConnectionFactory("testDatabase");
@@ -49,13 +46,8 @@ namespace WebApplication1.Helpers
             var arepo = new UserRepository(context);
             return arepo.GetAll();
         }
-
-
         public bool CheckLoginData(User tentity)
         {
-
-
-
             throw new NotImplementedException();
         }
     }
