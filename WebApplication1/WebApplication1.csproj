@@ -219,6 +219,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Algorithims\AgreesiveTurning_1.cs" />
+    <Compile Include="Algorithims\LaneChange.cs" />
     <Compile Include="App_Start\AuthHandler.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -390,7 +391,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>52189</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
