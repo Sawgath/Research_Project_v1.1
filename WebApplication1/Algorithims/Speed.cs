@@ -42,10 +42,10 @@ namespace WebApplication1.Algorithims
             }
 
             SpeedResult aResult = new SpeedResult();
-            aResult.TotalSafeTime=CheckTimer(safeDriveTimeList);
+            //aResult.TotalSafeTime=CheckTimer(safeDriveTimeList);
             aResult.SafeSpeedAvg = CheckSpeed(safeDriveTimeList);
 
-            aResult.TotalUnsafeTime = CheckTimer(unsafeDriveTimeList);
+           // aResult.TotalUnsafeTime = CheckTimer(unsafeDriveTimeList);
             aResult.UnsafeSpeedAvg = CheckSpeed(unsafeDriveTimeList);
 
 
@@ -73,6 +73,7 @@ namespace WebApplication1.Algorithims
 
                 TotalSpeed = TotalSpeed + aData.Speed;
             }
+
 
             return (TotalSpeed / count);
         }
