@@ -16,7 +16,7 @@ namespace WebApplication1.Models.DB
       public double Latitude {get; set;}
       public double Horizontal_Accuracy {get; set;}
       public double Speed {get; set;}
-      public double TimeStamp {get; set;}
+      public string TimeStamp {get; set;}
       public double User_Acceleration_X { get; set; }
       public double User_Acceleration_Y { get; set; }
       public double User_Acceleration_Z { get; set; }

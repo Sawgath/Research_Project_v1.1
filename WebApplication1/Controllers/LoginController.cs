@@ -19,12 +19,12 @@ namespace WebApplication1.Controllers
     {
 
         [HttpGet]
-        public LoginData Get()
+        public UserLogin Get()
         {
-            LoginData alogin = new LoginData();
-            alogin.User_Id = 1;
+            UserLogin alogin = new UserLogin();
+            alogin.UserName = "K2";
             alogin.Password = "MAC";
-            alogin.Active = "YES";
+            //alogin.Active = "YES";
             return alogin;
         }
         //[Route("api/Login/signin")]

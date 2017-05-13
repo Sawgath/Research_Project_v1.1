@@ -220,6 +220,7 @@
   <ItemGroup>
     <Compile Include="Algorithims\AgreesiveTurning_1.cs" />
     <Compile Include="Algorithims\LaneChange.cs" />
+    <Compile Include="Algorithims\Speed.cs" />
     <Compile Include="App_Start\AuthHandler.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -285,6 +286,8 @@
     <Compile Include="Models\DB\User.cs" />
     <Compile Include="Models\JsonModel\UserAcceleration.cs" />
     <Compile Include="Models\JsonModel\LoginData.cs" />
+    <Compile Include="Models\SpeedData.cs" />
+    <Compile Include="Models\SpeedResult.cs" />
     <Compile Include="Models\UserLogin.cs" />
     <Compile Include="Models\UserRegister.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
