@@ -26,7 +26,7 @@ namespace WebApplication1.Algorithims
                     //safe speed;
                     SpeedData aData = new SpeedData();
                     aData.Speed = aDriving_Data.Speed;
-                    aData.Time = aDriving_Data.TimeStamp;
+                    //aData.Time = aDriving_Data.TimeStamp;
 
                     safeDriveTimeList.Add(aData);
                 }
@@ -35,7 +35,7 @@ namespace WebApplication1.Algorithims
                     //unsafe speed;
                     SpeedData aData = new SpeedData();
                     aData.Speed = aDriving_Data.Speed;
-                    aData.Time = aDriving_Data.TimeStamp;
+                    //aData.Time = aDriving_Data.TimeStamp;
                     unsafeDriveTimeList.Add(aData);
 
                 }

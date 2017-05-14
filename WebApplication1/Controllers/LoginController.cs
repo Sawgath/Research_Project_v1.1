@@ -66,7 +66,7 @@ namespace WebApplication1.Controllers
             var unixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
             var expiry = Math.Round((DateTime.UtcNow.AddHours(2) - unixEpoch).TotalSeconds);
             var issuedAt = Math.Round((DateTime.UtcNow - unixEpoch).TotalSeconds);
-            var notBefore = Math.Round((DateTime.UtcNow.AddMonths(6) - unixEpoch).TotalSeconds);
+            var notBefore = Math.Round((DateTime.UtcNow - unixEpoch).TotalSeconds);
             var payload = new Dictionary<string, object>
             {
                 {"username", user.UserName},
@@ -82,7 +82,8 @@ namespace WebApplication1.Controllers
             IJsonSerializer serializer = new JsonNetSerializer();
             IBase64UrlEncoder urlEncoder = new JwtBase64UrlEncoder();
             IJwtEncoder encoder = new JwtEncoder(algorithm, serializer, urlEncoder);
-            var token = encoder.Encode(payload, secret);
+            //var token = encoder.Encode(payload, secret);
+            var token = encoder.Encode(payload, System.Text.Encoding.UTF8.GetBytes(secret));
             dbUser = new { user.UserName};
             //var jsonSerializer = new JavaScriptSerializer();
             //var jsonPayload = JWT.JsonWebToken.Decode(token,secret);

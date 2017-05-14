@@ -28,7 +28,7 @@ namespace WebApplication1.Repositories
                 command.Parameters.Add(command.CreateParameter("Gender", tentity.Gender));
                 command.Parameters.Add(command.CreateParameter("Age", tentity.Age));
                 command.Parameters.Add(command.CreateParameter("Email", tentity.Email));
-                command.Parameters.Add(command.CreateParameter("UserId", tentity.User_Id));
+                //command.Parameters.Add(command.CreateParameter("UserId", tentity.User_Id));
                 command.Parameters.Add(command.CreateParameter("Salt", tentity.Salt));
                 return this.ToList(command).FirstOrDefault();
             }

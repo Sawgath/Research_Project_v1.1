@@ -11,7 +11,7 @@ namespace WebApplication1.Models
         public double y { get; set; }
         public double z { get; set; }
 
-        public Gravity(double a,double b, double c)
+        public Gravity(double a, double b, double c)
         {
             x = a;
             y = b;

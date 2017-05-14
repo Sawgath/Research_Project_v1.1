@@ -14,12 +14,13 @@ namespace WebApplication1.Helpers
         {
             User_Driving_Data aDrivingData = new User_Driving_Data();
             aDrivingData.User_Id = aData.userID;
-            aDrivingData.Session_Id = 0;
+            aDrivingData.Session_Id = aData.Session_Id;
             //aDrivingData.Data_Id = 1;
             aDrivingData.Street_Name = aData.streetName;
             aDrivingData.Speed_Limit = aData.speedLimit;
             aDrivingData.Longitude = aData.coordinate.longitude;
             aDrivingData.Latitude = aData.coordinate.latitude;
+            aDrivingData.TimeStamp = aData.datetime;
             aDrivingData.Horizontal_Accuracy = aData.coordinate.horizontalAccuracy;
             aDrivingData.Speed = aData.speed;
             aDrivingData.Gravity_X = aData.gravity.x;

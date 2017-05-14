@@ -11,8 +11,9 @@ namespace WebApplication1.Models
         public double speedLimit { get; set; }
         public string streetName { get; set; }
         public double speed { get; set; }
+        public string Session_Id { get; set; }
         public double course { get; set; }
-        public string datetime { get; set; }
+        public DateTime datetime { get; set; }
         public Gravity gravity { get; set; }
         public UserAcceleration userAcceleration { get; set; }
         public RotationRate rotationRate { get; set; }

@@ -36,7 +36,7 @@ namespace WebApplication1.Helpers
             user.Password = userdata.Password;
             user.Age = userdata.Age;
             user.Gender = userdata.Gender;
-            user.Email= userdata.Email;
+            user.Email= userdata.Email; 
             var factory = new DbConnectionFactory("testDatabase");
             var context = new DbContext(factory);
             UserRepository arepo = new UserRepository(context);
