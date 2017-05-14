@@ -50,7 +50,7 @@ namespace WebApplication1.Controllers
                     {
                         object dbUser;
                         var token = CreateToken(existingUser[0], out dbUser);
-                        response = Request.CreateResponse(new { dbUser, token } + "Login Sucessful");
+                        response = Request.CreateResponse(new { dbUser, token });
                     }
                 }
             }
@@ -71,6 +71,7 @@ namespace WebApplication1.Controllers
             {
                 {"username", user.UserName},
                 {"userId", user.User_Id},
+                {"Role", "Admin"},
                 {"nbf", notBefore},
                 {"iat", issuedAt},
                 {"exp", expiry}

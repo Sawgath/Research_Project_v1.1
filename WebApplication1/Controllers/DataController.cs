@@ -14,7 +14,7 @@ namespace WebApplication1.Controllers
 
     public class DataController : ApiController
     {
-        [Authorize(Roles = "1")]
+        [Authorize]
         public Driving_Data Get()
         {
             //[{"xData":"23","yData":"43","zData":"64"},{"xData":"233","yData":"443","zData":"634"}]
@@ -55,11 +55,21 @@ namespace WebApplication1.Controllers
 
         [Authorize]
         [HttpPost]
-        public void post(Driving_Data alist)
+        public HttpResponseMessage post(Driving_Data alist)
         {
-            Map_User_Driving_Data_Helper aMap = new Map_User_Driving_Data_Helper();
-            aMap.Map_data(alist);
-            
+            HttpResponseMessage response = null;
+            try
+            {
+                Map_User_Driving_Data_Helper aMap = new Map_User_Driving_Data_Helper();
+                aMap.Map_data(alist);
+                response = Request.CreateResponse(HttpStatusCode.NotFound, "Success");
+            }
+            catch (Exception ex)
+            {
+                response = Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error");
+            }
+
+            return response;
         }
 
         [Authorize]

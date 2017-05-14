@@ -90,7 +90,7 @@ namespace WebApplication1
                 }
             }
 
-            var subject = new ClaimsIdentity();
+            var subject = new ClaimsIdentity("Federation", ClaimTypes.Name,ClaimTypes.Role);
 
             var claims = new List<Claim>();
 
@@ -114,8 +114,11 @@ namespace WebApplication1
                         case "Username":
                             claims.Add(new Claim(ClaimTypes.Name, pair.Value.ToString(), ClaimValueTypes.String));
                             break;
-                        case "userId":
+                        case "Role":
                             claims.Add(new Claim(ClaimTypes.Role, pair.Value.ToString(), ClaimValueTypes.Email));
+                            break;
+                        case "userId":
+                            claims.Add(new Claim(ClaimTypes.UserData, pair.Value.ToString(), ClaimValueTypes.Email));
                             break;
                         //case "nbf":
                         //    claims.Add(new Claim(ClaimTypes.Role, pair.Value.ToString(), ClaimValueTypes.String));
