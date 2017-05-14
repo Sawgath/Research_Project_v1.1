@@ -12,6 +12,10 @@ using JWT;
 using JWT.Serializers;
 using JWT.Algorithms;
 using System.Web.Script.Serialization;
+using System.IdentityModel.Tokens;
+using System.Security.Claims;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace WebApplication1.Controllers
 {
@@ -78,17 +82,60 @@ namespace WebApplication1.Controllers
 
             //var secret = ConfigurationManager.AppSettings.Get("jwtKey");
             var secret = "GQDstcKsx0NHjPOuXOYg5MbeJ1XT0uFiwDVvVBrk";
-            IJwtAlgorithm algorithm = new HMACSHA256Algorithm();
-            IJsonSerializer serializer = new JsonNetSerializer();
-            IBase64UrlEncoder urlEncoder = new JwtBase64UrlEncoder();
-            IJwtEncoder encoder = new JwtEncoder(algorithm, serializer, urlEncoder);
-            //var token = encoder.Encode(payload, secret);
-            var token = encoder.Encode(payload, System.Text.Encoding.UTF8.GetBytes(secret));
-            dbUser = new { user.UserName};
+            //IJwtAlgorithm algorithm = new HMACSHA256Algorithm();
+            //IJsonSerializer serializer = new JsonNetSerializer();
+            //IBase64UrlEncoder urlEncoder = new JwtBase64UrlEncoder();
+            //IJwtEncoder encoder = new JwtEncoder(algorithm, serializer, urlEncoder);
+            ////var token = encoder.Encode(payload, secret);
+            //var token = encoder.Encode(payload, System.Text.Encoding.UTF8.GetBytes(secret));
+            //dbUser = new { user.UserName };
+
+            var plainTextSecurityKey = "This is my shared, not so secret, secret!";
+            var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(plainTextSecurityKey));
+            var signingCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256Signature);
+
+            var claimsIdentity = new ClaimsIdentity(new List<Claim>()
+            {
+                new Claim(ClaimTypes.Name, user.UserName),
+                new Claim(ClaimTypes.NameIdentifier, user.User_Id.ToString())
+            }, "Custom");
+
+            var securityTokenDescriptor = new SecurityTokenDescriptor()
+            {
+                Audience = "http://jahan007.azurewebsites.net",
+                Subject = claimsIdentity,
+                NotBefore = Convert.ToDateTime(notBefore),
+                Expires = Convert.ToDateTime(expiry),
+                IssuedAt = Convert.ToDateTime(issuedAt),
+                SigningCredentials = signingCredentials,
+            };
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var plainToken = tokenHandler.CreateToken(securityTokenDescriptor);
+            var signedAndEncodedToken = tokenHandler.WriteToken(plainToken);
+
+            Console.WriteLine(plainToken.ToString());
+            Console.WriteLine(signedAndEncodedToken);
+            Console.ReadLine();
+
+            var tokenValidationParameters = new TokenValidationParameters()
+            {
+                ValidAudience = "http://jahan007.azurewebsites.net",
+                IssuerSigningKey = signingKey,
+                
+            };
+
+            SecurityToken validatedToken;
+            tokenHandler.ValidateToken(signedAndEncodedToken,
+                tokenValidationParameters, out validatedToken);
+
+            Console.WriteLine(validatedToken.ToString());
+            Console.ReadLine();
+
             //var jsonSerializer = new JavaScriptSerializer();
-            //var jsonPayload = JWT.JsonWebToken.Decode(token,secret);
+            //var jsonPayload = JWT.JsonWebToken.Decode(token, secret);
             //var payloadData = jsonSerializer.Deserialize<Dictionary<string, object>>(jsonPayload);
-            //return payloadData;
+            return payloadData;
             return token;
         }
         public static string EncryptPassword(string password, string salt)
