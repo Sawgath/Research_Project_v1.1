@@ -22,7 +22,7 @@ namespace WebApplication1.Repositories
         {
             using (var command = _context.CreateCommand())
             {
-                command.CommandText = @"INSERT INTO [dbo].[User] VALUES (@Username,@Password,@Email,@Age,@Gender,@Salt)";
+                command.CommandText = @"INSERT INTO [dbo].[User] VALUES (@Username,@Password,@Email,@Age,@Gender,@Salt,@Token)";
                 command.Parameters.Add(command.CreateParameter("Password", tentity.Password));
                 command.Parameters.Add(command.CreateParameter("Username", tentity.UserName));
                 command.Parameters.Add(command.CreateParameter("Gender", tentity.Gender));
@@ -30,6 +30,7 @@ namespace WebApplication1.Repositories
                 command.Parameters.Add(command.CreateParameter("Email", tentity.Email));
                 //command.Parameters.Add(command.CreateParameter("UserId", tentity.User_Id));
                 command.Parameters.Add(command.CreateParameter("Salt", tentity.Salt));
+                command.Parameters.Add(command.CreateParameter("Token", tentity.Token));
                 return this.ToList(command).FirstOrDefault();
             }
         }
@@ -48,15 +49,21 @@ namespace WebApplication1.Repositories
 
                 command.Parameters.Add(command.CreateParameter("User_Id", tentity.User_Id));
                 command.Parameters.Add(command.CreateParameter("Password", tentity.Password));
-                //command.Parameters.Add(command.CreateParameter("Active", tentity.Active));
-                //command.Parameters.Add(command.CreateParameter("ActiveStartTime", tentity.ActiveStartTime));
-
-
                 return this.ToList(command).FirstOrDefault();
-
-
             }
-           
+        }
+
+        public User TokenSaver(int userid, string token)
+        {
+
+            using (var command = _context.CreateCommand())
+            {
+                command.CommandText = "UPDATE[dbo].[User] SET [Token] = @Token WHERE [User_Id] = @User_Id";
+
+                command.Parameters.Add(command.CreateParameter("User_Id", userid));
+                command.Parameters.Add(command.CreateParameter("Token" , token));
+                return this.ToList(command).FirstOrDefault();
+            }
         }
 
 
@@ -82,11 +89,12 @@ namespace WebApplication1.Repositories
             }
 
         }
-        public IList<User> CheckExistingUser(string email)
+        public IList<User> CheckExistingUser(string UserName, string email)
         {
             using (var command = _context.CreateCommand())
             {
-                command.CommandText = "SELECT * FROM [dbo].[User] where [Email]= @Email";
+                command.CommandText = "SELECT * FROM [dbo].[User] where [UserName]= @UserName and [Email]= @Email";
+                command.Parameters.Add(command.CreateParameter("UserName", UserName));
                 command.Parameters.Add(command.CreateParameter("Email", email));
                 return ToList(command).ToList();
             }
@@ -99,6 +107,38 @@ namespace WebApplication1.Repositories
                 command.CommandText = "SELECT * FROM [dbo].[User] where [UserName]= @UserName";
                 command.Parameters.Add(command.CreateParameter("UserName", UserName));
                 return ToList(command).ToList();
+            }
+
+        }
+        public IList<User> Retrurn_NewUser_OnRegister(string UserName)
+        {
+            using (var command = _context.CreateCommand())
+            {
+                command.CommandText = "SELECT * FROM [dbo].[User] where [UserName]= @UserName";
+                command.Parameters.Add(command.CreateParameter("UserName", UserName));
+                return ToList(command).ToList();
+            }
+
+        }
+
+        public bool checktoken(string token, int user_id)
+        {
+            using (var command = _context.CreateCommand())
+            {
+                command.CommandText = "SELECT * FROM [dbo].[User] where [User_Id]= @User_Id and [Token]=@Token";
+                command.Parameters.Add(command.CreateParameter("User_Id", user_id));
+                command.Parameters.Add(command.CreateParameter("Token", token));
+
+                int i = ToList(command).Count();
+                if ( i==1)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
             }
 
         }

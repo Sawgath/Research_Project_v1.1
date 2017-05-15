@@ -13,6 +13,7 @@ using WebApplication1.Helpers;
 using JWT;
 using JWT.Serializers;
 using JWT.Algorithms;
+using System.Data.SqlClient;
 
 namespace WebApplication1.Controllers
 {
@@ -23,36 +24,44 @@ namespace WebApplication1.Controllers
         public HttpResponseMessage Register(UserRegister model)
         {
             HttpResponseMessage response;
-            if (ModelState.IsValid)
+            try
             {
-                LoginHelpers User = new LoginHelpers();
-                var existingUser = User.RegisterHelpers(model);
-                if (existingUser.Count != 0)
+                if (ModelState.IsValid)
                 {
-                    return Request.CreateResponse(HttpStatusCode.BadRequest, "User already exist.");
+
+                    LoginHelpers User = new LoginHelpers();
+                    var existingUser = User.RegisterHelpers(model);
+                    if (existingUser.Count != 0)
+                    {
+                        return Request.CreateResponse(HttpStatusCode.BadRequest, "User already exist.");
+                    }
+
+                    //Create user and save to database
+                    var user = CreateUser(model);
+                    object dbUser;
+
+                    //Create token
+                    var token = CreateToken(user[0], out dbUser);
+                    User.SaveToken(user[0].User_Id, token);
+                    response = Request.CreateResponse(new { dbUser, token });
                 }
-
-                //Create user and save to database
-                var user = CreateUser(model);
-                object dbUser;
-
-                //Create token
-                var token = CreateToken(user, out dbUser);
-                response = Request.CreateResponse(new { dbUser, token });
+                else
+                {
+                    response = Request.CreateResponse(HttpStatusCode.BadRequest, new { success = false });
+                }
             }
-            else
+            catch(SqlException)
             {
-                response = Request.CreateResponse(HttpStatusCode.BadRequest, new { success = false });
+                response= Request.CreateResponse("You haven't entered Username and Password");
             }
-
             return response;
         }
         private static string CreateToken(User user, out object dbUser)
         {
             var unixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-            var expiry = Math.Round((DateTime.UtcNow.AddHours(2) - unixEpoch).TotalSeconds);
-            var issuedAt = Math.Round((DateTime.UtcNow - unixEpoch).TotalSeconds);
-            var notBefore = Math.Round((DateTime.UtcNow.AddMonths(6) - unixEpoch).TotalSeconds);
+            var expiry = Math.Round((DateTime.UtcNow.AddYears(1000) - unixEpoch).TotalHours);
+            var issuedAt = Math.Round((DateTime.UtcNow - unixEpoch).TotalHours);
+            var notBefore = Math.Round((DateTime.UtcNow - unixEpoch).TotalHours);
             var payload = new Dictionary<string, object>
             {
                 {"username", user.UserName},
@@ -61,7 +70,6 @@ namespace WebApplication1.Controllers
                 {"iat", issuedAt},
                 {"exp", expiry}
             };
-
             //var secret = ConfigurationManager.AppSettings.Get("jwtKey");
             var secret = "GQDstcKsx0NHjPOuXOYg5MbeJ1XT0uFiwDVvVBrk";
             IJwtAlgorithm algorithm = new HMACSHA256Algorithm();
@@ -72,8 +80,9 @@ namespace WebApplication1.Controllers
             dbUser = new { user.User_Id, user.UserName};
             return token;
         }
+
         /// Create a new user and saves it to the database
-        private User CreateUser(UserRegister NewUser)
+        private IList<User> CreateUser(UserRegister NewUser)
         {
             LoginHelpers Newuser = new LoginHelpers();
             var passwordSalt = CreateSalt();
@@ -84,13 +93,12 @@ namespace WebApplication1.Controllers
                 UserName = NewUser.UserName,
                 Age = NewUser.Age,
                 Gender = NewUser.Gender,
-                Salt = passwordSalt
-
+                Salt = passwordSalt,
+                Token = ""
             };
-
             Newuser.SaveNewUser(user);
-
-            return user;
+            var newUSer = Newuser.ReturnNewUSer(user.UserName);
+            return newUSer;
         }
 
         /// Creates a random salt to be used for encrypting a password
@@ -103,15 +111,23 @@ namespace WebApplication1.Controllers
                 return Convert.ToBase64String(data);
             }
         }
-        
+
         ///Encrypts a password using the given salt
         public static string EncryptPassword(string password, string salt)
         {
             using (var sha256 = SHA256.Create())
             {
-                var saltedPassword = string.Format("{0}{1}", salt, password);
-                var saltedPasswordAsBytes = Encoding.UTF8.GetBytes(saltedPassword);
-                return Convert.ToBase64String(sha256.ComputeHash(saltedPasswordAsBytes));
+                if (password != null)
+                {
+                    var saltedPassword = string.Format("{0}{1}", salt, password);
+                    var saltedPasswordAsBytes = Encoding.UTF8.GetBytes(saltedPassword);
+                    return Convert.ToBase64String(sha256.ComputeHash(saltedPasswordAsBytes));
+                }
+                else
+                {
+                    return null;
+
+                }
             }
         }
     }

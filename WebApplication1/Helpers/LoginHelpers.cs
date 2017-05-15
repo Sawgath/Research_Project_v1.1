@@ -40,7 +40,7 @@ namespace WebApplication1.Helpers
             var factory = new DbConnectionFactory("testDatabase");
             var context = new DbContext(factory);
             UserRepository arepo = new UserRepository(context);
-            IList<User> existinguserlist= arepo.CheckExistingUser(user.Email).ToList();
+            IList<User> existinguserlist= arepo.CheckExistingUser(user.UserName,user.Email).ToList();
             return existinguserlist;
         }
         public IList<User> CheckUser(UserLogin userdata)
@@ -60,6 +60,35 @@ namespace WebApplication1.Helpers
             var context = new DbContext(factory);
             UserRepository arepo = new UserRepository(context);
             arepo.Insert(NewUser);
+        }
+
+        public List<User> ReturnNewUSer(string username)
+        {
+            var factory = new DbConnectionFactory("testDatabase");
+            var context = new DbContext(factory);
+            UserRepository arepo = new UserRepository(context);
+            var newuser= arepo.Retrurn_NewUser_OnRegister(username);
+            return newuser.ToList();
+            
+        }
+
+        public void SaveToken(int user_id, string token)
+        {
+            var factory = new DbConnectionFactory("testDatabase");
+            var context = new DbContext(factory);
+            UserRepository arepo = new UserRepository(context);
+            var newuser = arepo.TokenSaver(user_id, token);
+            
+        }
+
+        public bool checktokens(string token, int user_id)
+        {
+            var factory = new DbConnectionFactory("testDatabase");
+            var context = new DbContext(factory);
+            UserRepository arepo = new UserRepository(context);
+            var newuser = arepo.checktoken(token, user_id);
+            return newuser;
+
         }
 
     }
