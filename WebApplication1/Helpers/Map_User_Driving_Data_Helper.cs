@@ -12,7 +12,10 @@ namespace WebApplication1.Helpers
     {
         public void Map_data(Driving_Data aData)
         {
+            
+
             User_Driving_Data aDrivingData = new User_Driving_Data();
+
             aDrivingData.User_Id = aData.userID;
             aDrivingData.Session_Id = aData.Session_Id;
             //aDrivingData.Data_Id = 1;
@@ -38,6 +41,18 @@ namespace WebApplication1.Helpers
             var factory = new DbConnectionFactory("testDatabase");
             var context = new DbContext(factory);
             User_Driving_DataRepository arepo= new User_Driving_DataRepository(context);
+            UserRepository aUrepo = new UserRepository(context);
+
+            
+            //////////////////////////////////////////////////Username
+            //If you want use username instead of userid -------(change json model userid-> username)
+            //
+            //
+            //
+            //int untid = aUrepo.GetUserID(Username).User_Id;
+            //aDrivingData.User_Id = untid;
+            ////////////////////////////////////////////////
+
             arepo.Insert(aDrivingData);
         }
         public IList<User> getAllUserData()

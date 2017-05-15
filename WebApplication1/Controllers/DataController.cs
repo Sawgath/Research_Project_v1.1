@@ -19,6 +19,8 @@ namespace WebApplication1.Controllers
         {
             //[{"xData":"23","yData":"43","zData":"64"},{"xData":"233","yData":"443","zData":"634"}]
             //Sweq
+            
+
             List <Driving_Data> alist = new List<Driving_Data>();
             Driving_Data p1 = new Driving_Data();
             p1.userID = 1;
