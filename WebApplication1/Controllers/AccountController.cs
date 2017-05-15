@@ -34,11 +34,12 @@ namespace WebApplication1.Controllers
 
                 //Create user and save to database
                 var user = CreateUser(model);
-                object dbUser;
+                //object dbUser;
 
                 //Create token
-                var token = CreateToken(user, out dbUser);
-                response = Request.CreateResponse(new { dbUser, token });
+                //var token = CreateToken(user, out dbUser);
+                //response = Request.CreateResponse(new { dbUser, token });
+                response=Request.CreateResponse(HttpStatusCode.BadRequest, "User has been Created.");
             }
             else
             {
