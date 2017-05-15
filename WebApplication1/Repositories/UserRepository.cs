@@ -100,6 +100,16 @@ namespace WebApplication1.Repositories
             }
 
         }
+        public User GetUserID(string username)
+        {
+            using (var command = _context.CreateCommand())
+            {
+                command.CommandText = "SELECT * FROM [dbo].[User] where [UserName]= @UserName";
+                command.Parameters.Add(command.CreateParameter("UserName", username));
+                return ToList(command).First();
+            }
+
+        }
         public IList<User> ExistingUser(string UserName)
         {
             using (var command = _context.CreateCommand())
