@@ -95,6 +95,7 @@ namespace WebApplication1
             var claims = new List<Claim>();
 
             if (payloadData != null)
+
                 foreach (var pair in payloadData)
                 {
                     var claimType = pair.Key;

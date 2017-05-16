@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography;
@@ -8,7 +7,6 @@ using System.Text;
 using System.Web.Http;
 using WebApplication1.Models;
 using WebApplication1.Models.DB;
-using WebApplication1.Repositories;
 using WebApplication1.Helpers;
 using JWT;
 using JWT.Serializers;
@@ -50,15 +48,16 @@ namespace WebApplication1.Controllers
                     response = Request.CreateResponse(HttpStatusCode.BadRequest, new { success = false });
                 }
             }
-            catch(SqlException)
-            {
-                response= Request.CreateResponse("You haven't entered Username and Password");
-            }
+                catch(SqlException)
+                 {
+                    response= Request.CreateResponse("You haven't entered Username and Password");
+                 }
             return response;
         }
         private static string CreateToken(User user, out object dbUser)
         {
             var unixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            var secondsSinceEpoch = Math.Round((DateTime.UtcNow - unixEpoch).TotalSeconds);
             var expiry = Math.Round((DateTime.UtcNow.AddYears(10) - unixEpoch).TotalSeconds);
             var issuedAt = Math.Round((DateTime.UtcNow - unixEpoch).TotalSeconds);
             var notBefore = Math.Round((DateTime.UtcNow - unixEpoch).TotalSeconds);
