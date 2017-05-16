@@ -59,9 +59,9 @@ namespace WebApplication1.Controllers
         private static string CreateToken(User user, out object dbUser)
         {
             var unixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-            var expiry = Math.Round((DateTime.UtcNow.AddYears(1000) - unixEpoch).TotalHours);
-            var issuedAt = Math.Round((DateTime.UtcNow - unixEpoch).TotalHours);
-            var notBefore = Math.Round((DateTime.UtcNow - unixEpoch).TotalHours);
+            var expiry = Math.Round((DateTime.UtcNow.AddYears(10) - unixEpoch).TotalSeconds);
+            var issuedAt = Math.Round((DateTime.UtcNow - unixEpoch).TotalSeconds);
+            var notBefore = Math.Round((DateTime.UtcNow - unixEpoch).TotalSeconds);
             var payload = new Dictionary<string, object>
             {
                 {"username", user.UserName},
