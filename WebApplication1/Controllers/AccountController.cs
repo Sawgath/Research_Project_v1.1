@@ -31,28 +31,28 @@ namespace WebApplication1.Controllers
                     var existingUser = User.RegisterHelpers(model);
                     if (existingUser.Count != 0)
                     {
-                        return Request.CreateResponse(HttpStatusCode.BadRequest, "User already exist.");
+                        return Request.CreateResponse(HttpStatusCode.BadRequest, "User or Email already exist.");
                     }
-                    else
-                    {
-                        //Create user and save to database
-                        var user = CreateUser(model);
-                        object dbUser;
-                        //Create token
-                        var token = CreateToken(user[0], out dbUser);
-                        User.SaveToken(user[0].User_Id, token);
-                        response = Request.CreateResponse(new { dbUser, token });
-                    }
+
+                    //Create user and save to database
+                    var user = CreateUser(model);
+                    object dbUser;
+
+                    //Create token
+                    var token = CreateToken(user[0], out dbUser);
+                    User.SaveToken(user[0].User_Id, token);
+                    response = Request.CreateResponse(new { dbUser, token });
+
                 }
                 else
                 {
                     response = Request.CreateResponse(HttpStatusCode.BadRequest, new { success = false });
                 }
             }
-                catch(SqlException)
-                 {
-                    response= Request.CreateResponse("Feilds Missing");
-                 }
+            catch (SqlException)
+            {
+                response = Request.CreateResponse("You haven't entered Username and Password");
+            }
             return response;
         }
         private static string CreateToken(User user, out object dbUser)
@@ -77,7 +77,7 @@ namespace WebApplication1.Controllers
             IBase64UrlEncoder urlEncoder = new JwtBase64UrlEncoder();
             IJwtEncoder encoder = new JwtEncoder(algorithm, serializer, urlEncoder);
             var token = encoder.Encode(payload, secret);
-            dbUser = new { user.User_Id, user.UserName};
+            dbUser = new { user.User_Id, user.UserName };
             return token;
         }
 

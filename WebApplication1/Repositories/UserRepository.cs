@@ -61,7 +61,7 @@ namespace WebApplication1.Repositories
                 command.CommandText = "UPDATE[dbo].[User] SET [Token] = @Token WHERE [User_Id] = @User_Id";
 
                 command.Parameters.Add(command.CreateParameter("User_Id", userid));
-                command.Parameters.Add(command.CreateParameter("Token" , token));
+                command.Parameters.Add(command.CreateParameter("Token", token));
                 return this.ToList(command).FirstOrDefault();
             }
         }
@@ -75,10 +75,10 @@ namespace WebApplication1.Repositories
 
                 command.Parameters.Add(command.CreateParameter("User_Id", tentity.User_Id));
                 command.Parameters.Add(command.CreateParameter("Password", tentity.Password));
-    
+
                 int i = this.ToList(command).Count();
 
-                if(i == 1)
+                if (i == 1)
                 {
                     return true;
                 }
@@ -93,7 +93,7 @@ namespace WebApplication1.Repositories
         {
             using (var command = _context.CreateCommand())
             {
-                command.CommandText = "SELECT * FROM [dbo].[User] where [UserName]= @UserName and [Email]= @Email";
+                command.CommandText = "SELECT * FROM [dbo].[User] where [UserName]= @UserName OR [Email]= @Email";
                 command.Parameters.Add(command.CreateParameter("UserName", UserName));
                 command.Parameters.Add(command.CreateParameter("Email", email));
                 return ToList(command).ToList();
@@ -140,7 +140,7 @@ namespace WebApplication1.Repositories
                 command.Parameters.Add(command.CreateParameter("Token", token));
 
                 int i = ToList(command).Count();
-                if ( i==1)
+                if (i == 1)
                 {
                     return true;
                 }
