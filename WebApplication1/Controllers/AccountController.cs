@@ -33,15 +33,16 @@ namespace WebApplication1.Controllers
                     {
                         return Request.CreateResponse(HttpStatusCode.BadRequest, "User already exist.");
                     }
-
-                    //Create user and save to database
-                    var user = CreateUser(model);
-                    object dbUser;
-
-                    //Create token
-                    var token = CreateToken(user[0], out dbUser);
-                    User.SaveToken(user[0].User_Id, token);
-                    response = Request.CreateResponse(new { dbUser, token });
+                    else
+                    {
+                        //Create user and save to database
+                        var user = CreateUser(model);
+                        object dbUser;
+                        //Create token
+                        var token = CreateToken(user[0], out dbUser);
+                        User.SaveToken(user[0].User_Id, token);
+                        response = Request.CreateResponse(new { dbUser, token });
+                    }
                 }
                 else
                 {
@@ -50,7 +51,7 @@ namespace WebApplication1.Controllers
             }
                 catch(SqlException)
                  {
-                    response= Request.CreateResponse("You haven't entered Username and Password");
+                    response= Request.CreateResponse("Feilds Missing");
                  }
             return response;
         }
