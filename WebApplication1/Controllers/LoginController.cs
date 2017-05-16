@@ -57,6 +57,10 @@ namespace WebApplication1.Controllers
                             {
                                 response = Request.CreateResponse(new { existingUser[0].User_Id, existingUser[0].UserName, existingUser[0].Token } + " Is Authenticated");
                             }
+                            else
+                            {
+                                response = Request.CreateResponse("Please Provide correct User Credentials");
+                            }
                         }
                         else
                         {
