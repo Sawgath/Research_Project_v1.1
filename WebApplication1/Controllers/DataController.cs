@@ -64,7 +64,7 @@ namespace WebApplication1.Controllers
             {
                 Map_User_Driving_Data_Helper aMap = new Map_User_Driving_Data_Helper();
                 aMap.Map_data(alist);
-                response = Request.CreateResponse(HttpStatusCode.NotFound, "Success");
+                response = Request.CreateResponse(HttpStatusCode.OK, "Success");
             }
             catch (Exception ex)
             {
