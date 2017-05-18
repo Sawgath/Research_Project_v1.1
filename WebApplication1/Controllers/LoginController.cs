@@ -55,7 +55,7 @@ namespace WebApplication1.Controllers
 
                             if (loginSuccess)
                             {
-                                response = Request.CreateResponse(new { existingUser[0].User_Id, existingUser[0].UserName, existingUser[0].Token } + " Is Authenticated");
+                                response = Request.CreateResponse(new { existingUser[0].User_Id, existingUser[0].UserName, existingUser[0].Token } );
                             }
                             else
                             {
