@@ -31,7 +31,7 @@ namespace WebApplication1.Algorithims
             }
         }
 
-        public void CheckLaneChange()
+        private void CheckLaneChange()
         {
             foreach (double x in inputs)
             {
@@ -115,6 +115,7 @@ namespace WebApplication1.Algorithims
 
         public IList<IList<double>> GetLaneChangeEvents ()
         {
+            CheckLaneChange();
             return events;
         }
     }

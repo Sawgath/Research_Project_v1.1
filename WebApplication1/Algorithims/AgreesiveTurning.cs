@@ -6,7 +6,7 @@ using WebApplication1.Models.DB;
 
 namespace WebApplication1.Algorithims
 {
-    public class AgreesiveTurning_1
+    public class AgreesiveTurning
     {
         public double TurningAngle(User_Driving_Data Driving_Data1, User_Driving_Data Driving_Data2)
         {   

@@ -62,6 +62,19 @@ namespace WebApplication1.Repositories
           
         }
 
+        public IList<User_Driving_Data> GetUserDrivingDataWithIdAndSessionId(int userId, string sessionId)
+        {
+            using (var command = _context.CreateCommand())
+            {
+                command.CommandText = "SELECT * FROM [dbo].[User_Driving_Data] WHERE User_Id=@userid and Session_Id=sessionid";
+                command.Parameters.Add(command.CreateParameter("userid", userId));
+                command.Parameters.Add(command.CreateParameter("sessionid", sessionId));
+                
+                return this.ToList(command).ToList();
+            }
+
+        }
+
         public override User_Driving_Data Update(User_Driving_Data tentity)
         {
             throw new NotImplementedException();

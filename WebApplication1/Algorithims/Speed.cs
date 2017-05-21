@@ -9,8 +9,6 @@ namespace WebApplication1.Algorithims
 {
     public class Speed
     {
-
-
         public void GetSpeed(List<User_Driving_Data> aDriving_DataList)
         {
             //double CurrentSpeed = Driving_Data1.Speed;
@@ -48,8 +46,80 @@ namespace WebApplication1.Algorithims
            // aResult.TotalUnsafeTime = CheckTimer(unsafeDriveTimeList);
             aResult.UnsafeSpeedAvg = CheckSpeed(unsafeDriveTimeList);
 
+            if (unsafeDriveTimeList.Count() > safeDriveTimeList.Count())
+            {
+                //safe speed;
+                
+            }
+            else
+            {
+                //unsafe speed;
+
+            }
+
 
         }
+
+        public void GetSpeedData(List<User_Driving_Data> aDriving_DataList)
+        {
+            //double CurrentSpeed = Driving_Data1.Speed;
+            //double Speedlimit = Driving_Data1.Speed_Limit;
+
+            List<SpeedData> safeDriveTimeList = new List<SpeedData>();
+            List<SpeedData> unsafeDriveTimeList = new List<SpeedData>();
+            List<SpeedResultTimer> unsafeTimer = new List<SpeedResultTimer>();
+            DateTime? startTime= null;
+            DateTime? finishTime= null;
+            int flag = 0;
+            foreach (User_Driving_Data aDriving_Data in aDriving_DataList)
+            {
+
+                if (aDriving_Data.Speed_Limit >= aDriving_Data.Speed)
+                {
+                    //flag = 0;
+                    if (flag == 0)
+                    {
+
+
+
+                    }
+                    else if (flag == 1)
+                    {
+                        SpeedResultTimer aSpeedResultTimer = new SpeedResultTimer();
+                        aSpeedResultTimer.startTime = startTime;
+                        aSpeedResultTimer.finishTime = finishTime;
+                        aSpeedResultTimer.exceedTime = finishTime.Value.Subtract(startTime.Value);
+                        unsafeTimer.Add(aSpeedResultTimer);
+
+                    }
+
+
+                }
+                else
+                {
+                    //unsafe speed;
+                    if (flag == 0)
+                    {
+                        startTime = DateTime.Now;
+                        flag = 1;
+                    }
+                    else if (flag == 1)
+                    {
+                        finishTime = DateTime.Now;
+                    }
+                    
+                }
+            }
+
+            SpeedResult aResult = new SpeedResult();
+            //aResult.TotalSafeTime=CheckTimer(safeDriveTimeList);
+            aResult.SafeSpeedAvg = CheckSpeed(safeDriveTimeList);
+            // aResult.TotalUnsafeTime = CheckTimer(unsafeDriveTimeList);
+            aResult.UnsafeSpeedAvg = CheckSpeed(unsafeDriveTimeList);
+
+
+        }
+
 
         public string CheckTimer(List<SpeedData> DriveTimeList)
         {
