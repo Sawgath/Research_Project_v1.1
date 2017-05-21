@@ -42,8 +42,6 @@ namespace WebApplication1.Helpers
             var factory = new DbConnectionFactory("testDatabase");
             var context = new DbContext(factory);
             User_Driving_DataRepository arepo= new User_Driving_DataRepository(context);
-            UserRepository aUrepo = new UserRepository(context);
-
             
             //////////////////////////////////////////////////Username
             //If you want use username instead of userid -------(change json model userid-> username)
