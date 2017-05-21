@@ -10,6 +10,7 @@ namespace WebApplication1.Models.DB
       public int User_Id{get; set;}
       public string Session_Id{get; set;} 
       public int Data_Id{get; set;}
+      public int frequency { get; set; }
       public string Street_Name{get; set;}
       public double Speed_Limit{get; set;}
       public double Longitude {get; set;}

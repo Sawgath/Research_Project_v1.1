@@ -25,8 +25,8 @@ namespace WebApplication1.Repositories
         {
             using (var command = _context.CreateCommand())
             {
-                command.CommandText = "INSERT INTO [dbo].[User_Driving_Data]([User_Id],[Session_Id],[Street_Name],[Speed_Limit],[Longitude],[Latitude],[Horizontal_Accuracy],[Speed],[TimeStamp],[User_Acceleration_X],[User_Acceleration_Y],[User_Acceleration_Z],[Gravity_X],[Gravity_Y],[Gravity_Z],[Rotation_Rate_X],[Rotation_Rate_Y],[Rotation_Rate_Z],[Magnetic_Flied_X],[Magnetic_Field_Y],[Magnetic_Field_Z])" +
-                                    " VALUES(@User_Id,@Session_Id,@Street_Name,@Speed_Limit,@Longitude,@Latitude,@Horizontal_Accuracy,@Speed,@TimeStamp,@User_Acceleration_X,@User_Acceleration_Y,@User_Acceleration_Z,@Gravity_X,@Gravity_Y,@Gravity_Z,@Rotation_Rate_X,@Rotation_Rate_Y,@Rotation_Rate_Z,@Magnetic_Flied_X,@Magnetic_Field_Y,@Magnetic_Field_Z)";
+                command.CommandText = "INSERT INTO [dbo].[User_Driving_Data]([User_Id],[Session_Id],[frequency],[Street_Name],[Speed_Limit],[Longitude],[Latitude],[Horizontal_Accuracy],[Speed],[TimeStamp],[User_Acceleration_X],[User_Acceleration_Y],[User_Acceleration_Z],[Gravity_X],[Gravity_Y],[Gravity_Z],[Rotation_Rate_X],[Rotation_Rate_Y],[Rotation_Rate_Z],[Magnetic_Flied_X],[Magnetic_Field_Y],[Magnetic_Field_Z])" +
+                                    " VALUES(@User_Id,@Session_Id,@frequency,@Street_Name,@Speed_Limit,@Longitude,@Latitude,@Horizontal_Accuracy,@Speed,@TimeStamp,@User_Acceleration_X,@User_Acceleration_Y,@User_Acceleration_Z,@Gravity_X,@Gravity_Y,@Gravity_Z,@Rotation_Rate_X,@Rotation_Rate_Y,@Rotation_Rate_Z,@Magnetic_Flied_X,@Magnetic_Field_Y,@Magnetic_Field_Z)";
 
 
                // command.CommandText = "INSERT INTO [dbo].[User_Driving_Data]([User_Id],[Session_Id],[Street_Name],[Speed_Limit],[Longitude],[Latitude],[Horizontal_Accuracy],[Speed],[Gravity_X],[Gravity_Y],[Gravity_Z],[Rotation_Rate_X],[Rotation_Rate_Y],[Rotation_Rate_Z],[Magnetic_Flied_X],[Magnetic_Field_Y],[Magnetic_Field_Z])" +
@@ -35,6 +35,7 @@ namespace WebApplication1.Repositories
                 command.Parameters.Add(command.CreateParameter("User_Id", tentity.User_Id));
                 command.Parameters.Add(command.CreateParameter("Session_Id", tentity.Session_Id));
                 //command.Parameters.Add(command.CreateParameter("Data_Id", tentity.Data_Id));
+                command.Parameters.Add(command.CreateParameter("frequency", tentity.frequency));
                 command.Parameters.Add(command.CreateParameter("Street_Name", tentity.Street_Name));
                 command.Parameters.Add(command.CreateParameter("Speed_Limit", tentity.Speed_Limit));
                 command.Parameters.Add(command.CreateParameter("Longitude", tentity.Longitude));

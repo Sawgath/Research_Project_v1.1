@@ -19,6 +19,7 @@ namespace WebApplication1.Helpers
             aDrivingData.User_Id = aData.userID;
             aDrivingData.Session_Id = aData.Session_Id;
             //aDrivingData.Data_Id = 1;
+            aDrivingData.frequency = aData.frequency;
             aDrivingData.Street_Name = aData.streetName;
             aDrivingData.Speed_Limit = aData.speedLimit;
             aDrivingData.Longitude = aData.coordinate.longitude;

@@ -8,6 +8,7 @@ namespace WebApplication1.Models
     public class Driving_Data
     {
         public int userID { get; set; }
+        public int frequency { get; set; }
         public double speedLimit { get; set; }
         public string streetName { get; set; }
         public double speed { get; set; }
