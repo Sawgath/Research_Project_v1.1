@@ -17,7 +17,7 @@ namespace WebApplication1.Algorithims
             IList<User_Driving_Data> DataChuckList = new List<User_Driving_Data>();
             IList<User_Driving_Events> AggressiveTurning_EventsList = new List<User_Driving_Events>();
             double AgressiveTurningEventCount=0;
-            double LaneChangeEventCount = 0;
+            //double LaneChangeEventCount = 0;
             //LaneChange lanechange = new LaneChange();
             for (int i=0; i<DatachuckSize; i=i+frequency)
             {
@@ -28,7 +28,7 @@ namespace WebApplication1.Algorithims
                 var FirstEntry = DataChuckList.First();
                 var LastEntry = DataChuckList.Last();
                 var Heading = TurningAngle(FirstEntry, LastEntry);
-                if(Heading >= 30)
+                if(Heading > 30)
                 {
                     //Create aggresive turning event
                     AgressiveTurningEventCount++;
@@ -78,8 +78,7 @@ namespace WebApplication1.Algorithims
                 DataChuckList.Clear();
             }
         }
-
-
+        
         public double TurningAngle(User_Driving_Data Driving_Data1, User_Driving_Data Driving_Data2)
         {   
             double long1=Driving_Data1.Longitude;

@@ -221,6 +221,7 @@
     <Compile Include="Algorithims\Acceleration.cs" />
     <Compile Include="Algorithims\AgreesiveTurning_1.cs" />
     <Compile Include="Algorithims\LaneChange.cs" />
+    <Compile Include="Algorithims\Scoring.cs" />
     <Compile Include="Algorithims\Speed.cs" />
     <Compile Include="App_Start\AuthHandler.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
