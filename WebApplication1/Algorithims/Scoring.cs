@@ -29,7 +29,7 @@ namespace WebApplication1.Algorithims
                 else
                 if (evnt.Event_Type_Id == Convert.ToInt32(EventType.Sudden_Acceleration) || 
                     evnt.Event_Type_Id == Convert.ToInt32(EventType.Sudden_Braking) || 
-                    evnt.Event_Type_Id == Convert.ToInt32(EventType.Sudden_Acceleration))
+                    evnt.Event_Type_Id == Convert.ToInt32(EventType.Speeding_Event))
                 {
 
                     SpeedingAndAccelerationEvents++;

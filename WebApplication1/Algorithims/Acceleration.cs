@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using WebApplication1.Models.DB;
+using WebApplication1.Enum;
 
 
 public class Acceleration
@@ -9,58 +10,35 @@ public class Acceleration
 
     private double eventThresholdPositve = 0.2;
     private double eventThresholdNegative = -0.2;
-
-    //private double safetyThresholdPositive = 0.1;
-    //private double safetyThresholdNegative = -0.1;
-
-//    private bool isPositiveEventCreated = false;
-  //  private bool isNegativeEventCreated = false;
-
-    private List<double> eventAccelarations = new List<double>();
-    private List<double> eventbreak = new List<double>();
+    private List<User_Driving_Events> eventAll = new List<User_Driving_Events>();
     private int events;
 
-    public Acceleration(IList<User_Driving_Data> data)
+    public IList<User_Driving_Events> Checkacc(IList<User_Driving_Data> DrivingData)
     {
-        inputs = new List<double>();
-        
-        foreach (var obj in data)
+        foreach (User_Driving_Data dData in DrivingData)
         {
-            inputs.Add(obj.User_Acceleration_Y);
-        }
-    }
-
-    public void Checkacc()
-    {
-        foreach (double y in inputs)
-        {
-            //starting with postive values
-            if (y > eventThresholdPositve)
+            
+            if (dData.User_Acceleration_Y > eventThresholdPositve)
             {
-                eventAccelarations.Add(y);
-                events++;       
+                User_Driving_Events evnt = new User_Driving_Events();
+                evnt.Event_Type_Id = Convert.ToInt32(EventType.Sudden_Acceleration);
+                evnt.Event_Time = dData.TimeStamp;
+                evnt.User_Id = dData.User_Id;
+                eventAll.Add(evnt);
+                      
             }
-            else if (y < eventThresholdNegative)
+            else if (dData.User_Acceleration_Y < eventThresholdNegative)
             {
-                eventbreak.Add(y);
-                events++;
-            }
-            else
-            {
-
+                User_Driving_Events evnt = new User_Driving_Events();
+                evnt.Event_Type_Id = Convert.ToInt32(EventType.Sudden_Braking);
+                evnt.Event_Time = dData.TimeStamp;
+                evnt.User_Id = dData.User_Id;
+                eventAll.Add(evnt);
             }
         }
+        return eventAll;
     }
-    public int GetTotalacc()
-    {
-        //Console.ReadKey();
-        return events;
-    }
-
-    public IList <double> GetaccEvents()
-    {
-        return eventAccelarations;
-    }
+   
 }
 
 
