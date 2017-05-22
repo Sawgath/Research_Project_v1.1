@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using WebApplication1.Models.DB;
+using WebApplication1.Enum;
 
 namespace WebApplication1.Algorithims
 {   
@@ -14,6 +15,7 @@ namespace WebApplication1.Algorithims
             var RemainderOfList = listSize % frequency;
             var DatachuckSize = listSize - RemainderOfList;
             IList<User_Driving_Data> DataChuckList = new List<User_Driving_Data>();
+            IList<User_Driving_Events> AggressiveTurning_EventsList = new List<User_Driving_Events>();
             double AgressiveTurningEventCount=0;
             double LaneChangeEventCount = 0;
             //LaneChange lanechange = new LaneChange();
@@ -30,18 +32,25 @@ namespace WebApplication1.Algorithims
                 {
                     //Create aggresive turning event
                     AgressiveTurningEventCount++;
+                    User_Driving_Events events = new User_Driving_Events();
+                    events.User_Id = FirstEntry.User_Id;
+                    events.Event_Type_Id = Convert.ToInt32(EventType.Agressive_Turning);
+                    events.Event_Time = FirstEntry.TimeStamp;
+                    AggressiveTurning_EventsList.Add(events);
                 }
                 else 
                 if (Heading > 0 & Heading < 20 )
                 {
                     // lanechange.CheckLaneChange(DataChuckList);
-                    LaneChangeEventCount++;
+                    
                 }
+                FirstEntry = null;
+                LastEntry = null;
                 DataChuckList.Clear();
             }
             if (RemainderOfList != 0)
             {
-                for (var i = DatachuckSize * frequency; i < listSize; i++)
+                for (var i = DatachuckSize; i < listSize+1; i++)
                 {
                     DataChuckList.Add(Datalist.ElementAt(i));
                 }
@@ -51,14 +60,21 @@ namespace WebApplication1.Algorithims
                 if (Heading >= 30)
                 {
                     //Create aggresive turning event
-
+                    AgressiveTurningEventCount++;
+                    AgressiveTurningEventCount++;
+                    User_Driving_Events events = new User_Driving_Events();
+                    events.User_Id = FirstEntry.User_Id;
+                    events.Event_Type_Id = Convert.ToInt32(EventType.Agressive_Turning);
+                    events.Event_Time = FirstEntry.TimeStamp;
+                    AggressiveTurning_EventsList.Add(events);
                 }
                 else
                 if (Heading > 0 & Heading < 20)
                 {
                     // lanechange.CheckLaneChange(DataChuckList);
-
                 }
+                FirstEntry = null;
+                LastEntry = null;
                 DataChuckList.Clear();
             }
         }
