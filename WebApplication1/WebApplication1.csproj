@@ -264,6 +264,8 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\DataController.cs" />
     <Compile Include="Controllers\ProcessController.cs" />
+    <Compile Include="Controllers\HistoryController.cs" />
+    <Compile Include="Controllers\StopController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Enums\EventType.cs" />
     <Compile Include="Extensions\IDataRecordExtensions.cs" />
@@ -288,6 +290,7 @@
     <Compile Include="Models\JsonModel\Gravity.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\JsonModel\MagneticField.cs" />
+    <Compile Include="Models\JsonModel\HistoryData.cs" />
     <Compile Include="Models\JsonModel\ProcessData.cs" />
     <Compile Include="Models\JsonModel\RotationRate.cs" />
     <Compile Include="Models\DB\User.cs" />

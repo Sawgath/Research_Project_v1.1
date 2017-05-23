@@ -37,7 +37,25 @@ namespace WebApplication1.Repositories
 
         public override Session_History Update(Session_History tentity)
         {
-            throw new NotImplementedException();
+            using (var command = _context.CreateCommand())
+            {
+                command.CommandText = "UPDATE [dbo].[Session_History] SET End_Time=@endTime WHERE [User_Id]=@userId and Session_Id=@sessionId";
+                command.Parameters.Add(command.CreateParameter("userId", tentity.User_Id));
+                command.Parameters.Add(command.CreateParameter("sessionId", tentity.Session_Id));
+                command.Parameters.Add(command.CreateParameter("endTime", tentity.End_time));
+                return this.ToList(command).FirstOrDefault();
+            }
+        }
+
+        public IList<Session_History> getHistory(int userId)
+        {
+            using (var command = _context.CreateCommand())
+            {
+                command.CommandText = "SELECT TOP 5 * FROM [dbo].[Session_History] WHERE [User_Id]=@userId ORDER BY End_Time DESC";
+                command.Parameters.Add(command.CreateParameter("userId", userId));
+                return this.ToList(command).ToList();
+            }
+
         }
 
         public bool checkSession(string sessionid)

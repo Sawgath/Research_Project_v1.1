@@ -9,18 +9,18 @@ using WebApplication1.Models.JsonModel;
 
 namespace WebApplication1.Controllers
 {
-    public class ProcessController : ApiController
+    public class HistoryController : ApiController
     {
-        // GET: api/Process
+        // POST: api/Stop
         [HttpPost]
-        public HttpResponseMessage post(ProcessData processData)
+        public HttpResponseMessage post(HistoryData historyData)
         {
             HttpResponseMessage response = null;
             try
             {
                 ProcessHelper processHelper = new ProcessHelper();
-                processHelper.RunAlgorithms(processData);
-                response = Request.CreateResponse(HttpStatusCode.OK, "Success");
+                var list = processHelper.RunHistory(historyData);
+                response = Request.CreateResponse(HttpStatusCode.OK, list);
             }
             catch (Exception ex)
             {
@@ -29,8 +29,5 @@ namespace WebApplication1.Controllers
 
             return response;
         }
-
-        
-
     }
 }

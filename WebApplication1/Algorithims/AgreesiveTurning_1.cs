@@ -11,7 +11,7 @@ namespace WebApplication1.Algorithims
     {
         public IList<User_Driving_Events> CheckAgressiveTurning_And_LaneChange(IList<User_Driving_Data> Datalist)
         {
-            var frequency = Datalist.FirstOrDefault().frequency;
+            var frequency = Datalist.FirstOrDefault().Frequency;
             var listSize = Datalist.Count();
             var RemainderOfList = listSize % frequency;
             var DatachuckSize = listSize - RemainderOfList;
@@ -36,7 +36,7 @@ namespace WebApplication1.Algorithims
                     //Create aggresive turning event
                     AgressiveTurningEventCount++;
                     User_Driving_Events events = new User_Driving_Events();
-                    events.User_Id = FirstEntry.User_Id;
+                    events.Session_Id = FirstEntry.Session_Id;
                     events.Event_Type_Id = Convert.ToInt32(EventType.Agressive_Turning);
                     events.Event_Time = FirstEntry.TimeStamp;
                     Events.Add(events);
@@ -70,7 +70,7 @@ namespace WebApplication1.Algorithims
                     AgressiveTurningEventCount++;
                     AgressiveTurningEventCount++;
                     User_Driving_Events events = new User_Driving_Events();
-                    events.User_Id = FirstEntry.User_Id;
+                    events.Session_Id = FirstEntry.Session_Id;
                     events.Event_Type_Id = Convert.ToInt32(EventType.Agressive_Turning);
                     events.Event_Time = FirstEntry.TimeStamp;
                     Events.Add(events);

@@ -41,7 +41,7 @@ namespace WebApplication1.Algorithims
                         eventAccelarations.Add(x.User_Acceleration_X);
                         //events.Add(eventAccelarations);
                         User_Driving_Events LaneChangeEvent = new User_Driving_Events();
-                        LaneChangeEvent.User_Id = x.User_Id;
+                        LaneChangeEvent.Session_Id = x.Session_Id;
                         LaneChangeEvent.Event_Type_Id = Convert.ToInt32(EventType.Agressive_Lane_Change);
                         LaneChangeEvent.Event_Time = x.TimeStamp;
                         eventsList.Add(LaneChangeEvent);
@@ -77,7 +77,7 @@ namespace WebApplication1.Algorithims
                         isPositiveEventCreated = false;
                         eventAccelarations.Add(x.User_Acceleration_X);
                         User_Driving_Events LaneChangeEvent = new User_Driving_Events();
-                        LaneChangeEvent.User_Id = x.User_Id;
+                        LaneChangeEvent.Session_Id = x.Session_Id;
                         LaneChangeEvent.Event_Type_Id = Convert.ToInt32(EventType.Agressive_Lane_Change);
                         LaneChangeEvent.Event_Time = x.TimeStamp;
                         eventsList.Add(LaneChangeEvent);

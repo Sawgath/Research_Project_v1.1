@@ -9,9 +9,9 @@ using WebApplication1.Models.JsonModel;
 
 namespace WebApplication1.Controllers
 {
-    public class ProcessController : ApiController
+    public class StopController : ApiController
     {
-        // GET: api/Process
+        // POST: api/Stop
         [HttpPost]
         public HttpResponseMessage post(ProcessData processData)
         {
@@ -19,7 +19,7 @@ namespace WebApplication1.Controllers
             try
             {
                 ProcessHelper processHelper = new ProcessHelper();
-                processHelper.RunAlgorithms(processData);
+                processHelper.StopProcess(processData);
                 response = Request.CreateResponse(HttpStatusCode.OK, "Success");
             }
             catch (Exception ex)
@@ -29,8 +29,5 @@ namespace WebApplication1.Controllers
 
             return response;
         }
-
-        
-
     }
 }

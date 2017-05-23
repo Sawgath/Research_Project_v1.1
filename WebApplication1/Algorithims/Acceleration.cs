@@ -21,9 +21,9 @@ public class Acceleration
             if (dData.User_Acceleration_Y > eventThresholdPositve)
             {
                 User_Driving_Events evnt = new User_Driving_Events();
-                evnt.Event_Type_Id = Convert.ToInt32(EventType.Sudden_Acceleration);
+                evnt.Event_Type_Id = (int)EventType.Sudden_Acceleration;
                 evnt.Event_Time = dData.TimeStamp;
-                evnt.User_Id = dData.User_Id;
+                evnt.Session_Id = dData.Session_Id;
                 eventAll.Add(evnt);
                       
             }
@@ -32,7 +32,7 @@ public class Acceleration
                 User_Driving_Events evnt = new User_Driving_Events();
                 evnt.Event_Type_Id = Convert.ToInt32(EventType.Sudden_Braking);
                 evnt.Event_Time = dData.TimeStamp;
-                evnt.User_Id = dData.User_Id;
+                evnt.Session_Id = dData.Session_Id;
                 eventAll.Add(evnt);
             }
         }

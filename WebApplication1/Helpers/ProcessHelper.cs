@@ -41,6 +41,41 @@ namespace WebApplication1.Helpers
             }
         }
 
+        public IList<Session_History> RunHistory(HistoryData histoyData)
+        {
+            try
+            {
+                var factory = new DbConnectionFactory("testDatabase");
+                var context = new DbContext(factory);
+                var repo = new Session_HistoryRepository(context);
+                var list = repo.getHistory(histoyData.userID);
+                return list;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to Retrieve data");
+            }
+        }
+
+        public void StopProcess(ProcessData processData)
+        {
+            try
+            {
+                var factory = new DbConnectionFactory("testDatabase");
+                var context = new DbContext(factory);
+                var repo = new Session_HistoryRepository(context);
+                var sessionHistory = new Session_History();
+                sessionHistory.Session_Id = processData.Session_Id;
+                sessionHistory.User_Id = processData.userID;
+                sessionHistory.End_time = DateTime.Now;
+                repo.Update(sessionHistory);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to Retrieve data");
+            }
+        }
+
         private void InsertDrivingEvents(IList<User_Driving_Events> events)
         {
             var factory = new DbConnectionFactory("testDatabase");
