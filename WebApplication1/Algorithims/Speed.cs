@@ -9,6 +9,9 @@ namespace WebApplication1.Algorithims
 {
     public class Speed
     {
+
+        private List<User_Driving_Events> eventAll = new List<User_Driving_Events>();
+        private int events;
         public void GetSpeed(List<User_Driving_Data> aDriving_DataList)
         {
             //double CurrentSpeed = Driving_Data1.Speed;
@@ -16,6 +19,7 @@ namespace WebApplication1.Algorithims
             
             List<SpeedData> safeDriveTimeList = new List<SpeedData>();
             List<SpeedData> unsafeDriveTimeList = new List<SpeedData>();
+
             foreach (User_Driving_Data aDriving_Data in aDriving_DataList)
             {
                 
@@ -67,7 +71,7 @@ namespace WebApplication1.Algorithims
 
             List<SpeedData> safeDriveTimeList = new List<SpeedData>();
             List<SpeedData> unsafeDriveTimeList = new List<SpeedData>();
-            List<SpeedResultTimer> unsafeTimer = new List<SpeedResultTimer>();
+            //List<SpeedResultTimer> unsafeTimer = new List<SpeedResultTimer>();
             DateTime? startTime= null;
             DateTime? finishTime= null;
             int flag = 0;
@@ -85,11 +89,11 @@ namespace WebApplication1.Algorithims
                     }
                     else if (flag == 1)
                     {
-                        SpeedResultTimer aSpeedResultTimer = new SpeedResultTimer();
-                        aSpeedResultTimer.startTime = startTime;
-                        aSpeedResultTimer.finishTime = finishTime;
-                        aSpeedResultTimer.exceedTime = finishTime.Value.Subtract(startTime.Value);
-                        unsafeTimer.Add(aSpeedResultTimer);
+                        //SpeedResultTimer aSpeedResultTimer = new SpeedResultTimer();
+                        ///aSpeedResultTimer.startTime = startTime;
+                        //aSpeedResultTimer.finishTime = finishTime;
+                        //aSpeedResultTimer.exceedTime = finishTime.Value.Subtract(startTime.Value);
+                        //unsafeTimer.Add(aSpeedResultTimer);
 
                     }
 

@@ -19,7 +19,7 @@ namespace WebApplication1.Helpers
             aDrivingData.User_Id = aData.userID;
             aDrivingData.Session_Id = aData.Session_Id;
             //aDrivingData.Data_Id = 1;
-            aDrivingData.frequency = aData.frequency;
+            aDrivingData.Frequency = aData.frequency;
             aDrivingData.Street_Name = aData.streetName;
             aDrivingData.Speed_Limit = aData.speedLimit;
             aDrivingData.Longitude = aData.coordinate.longitude;
@@ -41,7 +41,22 @@ namespace WebApplication1.Helpers
             aDrivingData.Magnetic_Field_Z = aData.magneticField.z;
             var factory = new DbConnectionFactory("testDatabase");
             var context = new DbContext(factory);
-            User_Driving_DataRepository arepo= new User_Driving_DataRepository(context);
+
+            var sessionHistoryRepo = new Session_HistoryRepository(context);
+
+            bool flag = sessionHistoryRepo.checkSession(aDrivingData.Session_Id);
+            if (flag)
+            {
+                var sessionHistory = new Session_History();
+                sessionHistory.Session_Id = aDrivingData.Session_Id;
+                sessionHistory.User_Id = aDrivingData.User_Id;
+                sessionHistory.Start_time = DateTime.Now;
+                sessionHistoryRepo.Insert(sessionHistory);
+
+            }
+
+
+            User_Driving_DataRepository arepo = new User_Driving_DataRepository(context);
             
             //////////////////////////////////////////////////Username
             //If you want use username instead of userid -------(change json model userid-> username)

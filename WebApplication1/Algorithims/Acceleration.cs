@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using WebApplication1.Models.DB;
-using WebApplication1.Enum;
+using WebApplication1.Enums;
 
 
 public class Acceleration

@@ -24,11 +24,11 @@ namespace WebApplication1.Helpers
         public void RunAlgorithms(ProcessData processData)
         {
             GetUserData(processData);
-            var accelerationAlgo = new Acceleration(dataList);
+            //var accelerationAlgo = new Acceleration(dataList);
             var speedAlgo = new Speed();
             var aggressiveTurningAlgo = new AgreesiveTurning();
             var laneChangeAlgo = new LaneChange(dataList);
-            accelerationAlgo.Checkacc();
+            // accelerationAlgo.Checkacc();
             //speed algo function
             //AggressiveTurning algo function
             laneChangeAlgo.GetLaneChangeEvents();
