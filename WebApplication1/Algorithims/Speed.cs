@@ -23,6 +23,7 @@ namespace WebApplication1.Algorithims
             List<User_Driving_Events> eventList = new List<User_Driving_Events>();
 
             List<SpeedResultTimer> unsafeTimer = new List<SpeedResultTimer>();
+            string sessionIdTemp = "";
             DateTime startTime=DateTime.Now;
             DateTime? startTimer= null;
             DateTime? finishTimer= null;
@@ -49,13 +50,15 @@ namespace WebApplication1.Algorithims
                         //aSpeedResultTimer.exceedTime = finishTimer.Value.Subtract(startTimer.Value);
                         //unsafeTimer.Add(aSpeedResultTimer);
                         ////////////////////////////////////////////
-
+                        sessionIdTemp = aDriving_Data.Session_Id;
 
                         User_Driving_Events aEvent = new User_Driving_Events();
                         aEvent.Event_Type_Id = (int)EventType.Speeding_Event;
                         aEvent.Event_Time = startTime;
-                        aEvent.Session_Id = aDriving_Data.Session_Id;
+                        aEvent.Session_Id = sessionIdTemp;
                         eventList.Add(aEvent);
+
+
 
                     }
 
@@ -76,6 +79,16 @@ namespace WebApplication1.Algorithims
                     }
                     
                 }
+            }
+
+            if (flag == 1)
+            {
+                User_Driving_Events aEvent = new User_Driving_Events();
+                aEvent.Event_Type_Id = (int)EventType.Speeding_Event;
+                aEvent.Event_Time = startTime;
+                aEvent.Session_Id = sessionIdTemp;
+                eventList.Add(aEvent);
+
             }
 
             return eventList;
