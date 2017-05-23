@@ -17,34 +17,32 @@ namespace WebApplication1.Algorithims
        
             foreach (var evnt in eventList)
             {
-                if (evnt.Event_Type_Id == Convert.ToInt32(EventType.Agressive_Lane_Change))
+                if (evnt.Event_Type_Id == (int)(EventType.Agressive_Lane_Change))
                 {
                     LaneChange++;
                 }
                 else
-                if (evnt.Event_Type_Id == Convert.ToInt32(EventType.Agressive_Turning))
+                if (evnt.Event_Type_Id == (int)(EventType.Agressive_Turning))
                 {
                     AggressiveTurning++;
                 }
                 else
-                if (evnt.Event_Type_Id == Convert.ToInt32(EventType.Sudden_Acceleration) || 
-                    evnt.Event_Type_Id == Convert.ToInt32(EventType.Sudden_Braking) || 
-                    evnt.Event_Type_Id == Convert.ToInt32(EventType.Speeding_Event))
+                if (evnt.Event_Type_Id == (int)(EventType.Sudden_Acceleration) || 
+                    evnt.Event_Type_Id == (int)(EventType.Sudden_Braking) || 
+                    evnt.Event_Type_Id == (int)(EventType.Speeding_Event))
                 {
-
                     SpeedingAndAccelerationEvents++;
                 }
             }
-            if(LaneChange>0)
+            if(LaneChange > 0)
             {
                 return "High Risk";
             }
-            else
-            if(AggressiveTurning>0)
+            else if(AggressiveTurning > 0)
             {
                 return "Medium Risk";
-            }else
-            if(SpeedingAndAccelerationEvents>0)
+            }
+            else if(SpeedingAndAccelerationEvents>0)
             {
                 return "Moderate Risk";
             }
@@ -52,6 +50,6 @@ namespace WebApplication1.Algorithims
             {
                 return "No Risk";
             }
-            }
         }
     }
+}
