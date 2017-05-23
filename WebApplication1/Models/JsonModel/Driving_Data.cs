@@ -20,20 +20,5 @@ namespace WebApplication1.Models
         public RotationRate rotationRate { get; set; }
         public MagneticField magneticField { get; set; }
         public Coordinate coordinate { get; set; }
-        //--------------------
-        //public string userID;
-        //public double speedLimit;
-        //public string streetName;
-        //public double speed;
-        //public double course;
-        //public string datetime;
-
-        //public Gravity gravity;
-
-        //public UserAcceleration userAcceleration;
-
-        //public RotationRate rotationRate;
-
-        //public MagneticField magneticField;
     }
 }

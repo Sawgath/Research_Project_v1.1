@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using WebApplication1.Models.DB;
-using WebApplication1.Enum;
+using WebApplication1.Enums;
 
 namespace WebApplication1.Algorithims
 {

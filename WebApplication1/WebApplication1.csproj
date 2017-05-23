@@ -262,8 +262,9 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\DataController.cs" />
+    <Compile Include="Controllers\ProcessController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
-    <Compile Include="Enum\EventType.cs" />
+    <Compile Include="Enums\EventType.cs" />
     <Compile Include="Extensions\IDataRecordExtensions.cs" />
     <Compile Include="Extensions\IDbCommandExtensions.cs" />
     <Compile Include="Extensions\ListToDatasetExtension.cs" />
@@ -272,6 +273,7 @@
     </Compile>
     <Compile Include="Helpers\LoginHelpers.cs" />
     <Compile Include="Helpers\Map_User_Driving_Data_Helper.cs" />
+    <Compile Include="Helpers\ProcessHelper.cs" />
     <Compile Include="Interfaces\IConnectionFactory.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
@@ -284,12 +286,14 @@
     <Compile Include="Models\JsonModel\Gravity.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\JsonModel\MagneticField.cs" />
+    <Compile Include="Models\JsonModel\ProcessData.cs" />
     <Compile Include="Models\JsonModel\RotationRate.cs" />
     <Compile Include="Models\DB\User.cs" />
     <Compile Include="Models\JsonModel\UserAcceleration.cs" />
     <Compile Include="Models\JsonModel\LoginData.cs" />
     <Compile Include="Models\SpeedData.cs" />
     <Compile Include="Models\SpeedResult.cs" />
+    <Compile Include="Models\SpeedResultTimer.cs" />
     <Compile Include="Models\UserLogin.cs" />
     <Compile Include="Models\UserRegister.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

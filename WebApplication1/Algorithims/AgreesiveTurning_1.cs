@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using WebApplication1.Models.DB;
-using WebApplication1.Enum;
+using WebApplication1.Enums;
 
 namespace WebApplication1.Algorithims
 {   
     public class AgreesiveTurning
     {
-        public void checkAgressiveTurning_And_LaneChange(IList<User_Driving_Data> Datalist, int frequency)
+        public void CheckAgressiveTurning_And_LaneChange(IList<User_Driving_Data> Datalist, int frequency)
         {
             var listSize = Datalist.Count();
             var RemainderOfList = listSize % frequency;
