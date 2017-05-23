@@ -30,6 +30,7 @@ namespace WebApplication1.Helpers
                 var accelerationEvents = accelerationAlgo.Checkacc(dataList);
                 InsertDrivingEvents(accelerationEvents);
                 var speedAlgo = new Speed();
+                var speedEvents = speedAlgo.GetSpeedData(dataList);
                 //speedevents returned here
                 var aggressiveTurningAlgo = new AgreesiveTurning();
                 var turnAndLaneChangeEvents = aggressiveTurningAlgo.CheckAgressiveTurning_And_LaneChange(dataList);       //lane change algo is run within aggressive turning
