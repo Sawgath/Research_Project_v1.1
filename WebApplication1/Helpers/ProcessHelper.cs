@@ -23,19 +23,25 @@ namespace WebApplication1.Helpers
 
         public void RunAlgorithms(ProcessData processData)
         {
-            GetUserData(processData);
-            //var accelerationAlgo = new Acceleration(dataList);
-            var speedAlgo = new Speed();
-            var aggressiveTurningAlgo = new AgreesiveTurning();
-            var laneChangeAlgo = new LaneChange(dataList);
-            // accelerationAlgo.Checkacc();
-            //speed algo function
-            //AggressiveTurning algo function
-            laneChangeAlgo.GetLaneChangeEvents();
-            //dataList.
+            try
+            {
+                GetUserData(processData);
+                var accelerationAlgo = new Acceleration();
+                var accelerationEvents = accelerationAlgo.Checkacc(dataList);
+                InsertDrivingEvents(accelerationEvents);
+                var speedAlgo = new Speed();
+                //speedevents returned here
+                var aggressiveTurningAlgo = new AgreesiveTurning();
+                var turnAndLaneChangeEvents = aggressiveTurningAlgo.CheckAgressiveTurning_And_LaneChange(dataList);       //lane change algo is run within aggressive turning
+                InsertDrivingEvents(turnAndLaneChangeEvents);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to Retrieve data");
+            }
         }
 
-        private void InsertDrivingEvents()
+        private void InsertDrivingEvents(IList<User_Driving_Events> events)
         {
             var factory = new DbConnectionFactory("testDatabase");
             var context = new DbContext(factory);

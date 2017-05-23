@@ -9,13 +9,16 @@ namespace WebApplication1.Algorithims
 {   
     public class AgreesiveTurning
     {
-        public void checkAgressiveTurning_And_LaneChange(IList<User_Driving_Data> Datalist, int frequency)
+        public IList<User_Driving_Events> CheckAgressiveTurning_And_LaneChange(IList<User_Driving_Data> Datalist)
         {
+            var frequency = Datalist.FirstOrDefault().frequency;
             var listSize = Datalist.Count();
             var RemainderOfList = listSize % frequency;
             var DatachuckSize = listSize - RemainderOfList;
-            IList<User_Driving_Data> DataChuckList = new List<User_Driving_Data>();
+            IList<User_Driving_Data> DataChunkList = new List<User_Driving_Data>();
             IList<User_Driving_Events> AggressiveTurning_EventsList = new List<User_Driving_Events>();
+            IList<User_Driving_Events> LaneChange_EventsList = new List<User_Driving_Events>();
+            IList<User_Driving_Events> Events = new List<User_Driving_Events>();
             double AgressiveTurningEventCount=0;
             //double LaneChangeEventCount = 0;
             //LaneChange lanechange = new LaneChange();
@@ -23,10 +26,10 @@ namespace WebApplication1.Algorithims
             {
                 for(int j=i; j<i+frequency; j++)
                 {
-                    DataChuckList.Add(Datalist.ElementAt(j));
+                    DataChunkList.Add(Datalist.ElementAt(j));
                 }
-                var FirstEntry = DataChuckList.First();
-                var LastEntry = DataChuckList.Last();
+                var FirstEntry = DataChunkList.First();
+                var LastEntry = DataChunkList.Last();
                 var Heading = TurningAngle(FirstEntry, LastEntry);
                 if(Heading > 30)
                 {
@@ -36,26 +39,30 @@ namespace WebApplication1.Algorithims
                     events.User_Id = FirstEntry.User_Id;
                     events.Event_Type_Id = Convert.ToInt32(EventType.Agressive_Turning);
                     events.Event_Time = FirstEntry.TimeStamp;
-                    AggressiveTurning_EventsList.Add(events);
+                    Events.Add(events);
                 }
                 else 
                 if (Heading > 0 & Heading < 20 )
                 {
-                    // lanechange.CheckLaneChange(DataChuckList);
-                    
+                    var laneChangeAlgo = new LaneChange();
+                    var laneChangeEvents = laneChangeAlgo.CheckLaneChange(DataChunkList);
+                    foreach (var e in laneChangeEvents)
+                    {
+                        Events.Add(e);
+                    }
                 }
                 FirstEntry = null;
                 LastEntry = null;
-                DataChuckList.Clear();
+                DataChunkList.Clear();
             }
             if (RemainderOfList != 0)
             {
                 for (var i = DatachuckSize; i < listSize+1; i++)
                 {
-                    DataChuckList.Add(Datalist.ElementAt(i));
+                    DataChunkList.Add(Datalist.ElementAt(i));
                 }
-                var FirstEntry = DataChuckList.First();
-                var LastEntry = DataChuckList.Last();
+                var FirstEntry = DataChunkList.First();
+                var LastEntry = DataChunkList.Last();
                 var Heading = TurningAngle(FirstEntry, LastEntry);
                 if (Heading >= 30)
                 {
@@ -66,20 +73,27 @@ namespace WebApplication1.Algorithims
                     events.User_Id = FirstEntry.User_Id;
                     events.Event_Type_Id = Convert.ToInt32(EventType.Agressive_Turning);
                     events.Event_Time = FirstEntry.TimeStamp;
-                    AggressiveTurning_EventsList.Add(events);
+                    Events.Add(events);
                 }
                 else
                 if (Heading > 0 & Heading < 20)
                 {
-                    // lanechange.CheckLaneChange(DataChuckList);
+                    var laneChangeAlgo = new LaneChange();
+                    var laneChangeEvents = laneChangeAlgo.CheckLaneChange(DataChunkList);
+                    foreach (var e in laneChangeEvents)
+                    {
+                        Events.Add(e);
+                    }
                 }
                 FirstEntry = null;
                 LastEntry = null;
-                DataChuckList.Clear();
+                DataChunkList.Clear();
             }
+
+            return Events;
         }
         
-        public double TurningAngle(User_Driving_Data Driving_Data1, User_Driving_Data Driving_Data2)
+        private double TurningAngle(User_Driving_Data Driving_Data1, User_Driving_Data Driving_Data2)
         {   
             double long1=Driving_Data1.Longitude;
             double long2 = Driving_Data2.Longitude;
@@ -94,7 +108,7 @@ namespace WebApplication1.Algorithims
             return brng;
         }
 
-        public static double RadianToDegree(double radian)
+        private static double RadianToDegree(double radian)
         {
             return (180 / Math.PI) * radian;
         }

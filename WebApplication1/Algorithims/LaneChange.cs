@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using WebApplication1.Enums;
 using WebApplication1.Models.DB;
 
 namespace WebApplication1.Algorithims
@@ -7,7 +8,6 @@ namespace WebApplication1.Algorithims
     public class LaneChange
     {
         //double[] inputs = new double[] { 0.01, 0.001, 0.04, 0.09, 0.11, -0.15, 0.06, 0.01, 0.01, 0.001 };
-        private IList<double> inputs { get; set; }
 
         private double eventThresholdPositve = 0.05;
         private double eventThresholdNegative = -0.05;
@@ -19,44 +19,39 @@ namespace WebApplication1.Algorithims
         private bool isNegativeEventCreated = false;
 
         private List<double> eventAccelarations = new List<double>();
-        private IList<IList<double>> events { get; set; }
+        private IList<User_Driving_Events> eventsList = new List<User_Driving_Events>();
 
-        public LaneChange(IList<User_Driving_Data> data)
+        public IList<User_Driving_Events> CheckLaneChange(IList<User_Driving_Data> data)
         {
-            inputs = new List<double>();
-            events = new List<IList<double>>();
-            foreach (var obj in data)
-            {
-                inputs.Add(obj.User_Acceleration_X);
-            }
-        }
-
-        private void CheckLaneChange()
-        {
-            foreach (double x in inputs)
+            foreach (var x in data)
             {
                 //starting with postive values
-                if (x > eventThresholdPositve)
+                if (x.User_Acceleration_X > eventThresholdPositve)
                 {
                     if (isPositiveEventCreated)
                     {
-                        if (x > safetyThresholdPositive)
+                        if (x.User_Acceleration_X > safetyThresholdPositive)
                         {
-                            eventAccelarations.Add(x);
+                            eventAccelarations.Add(x.User_Acceleration_X);
                         }
                     }
                     else if (isNegativeEventCreated)
                     {
                         isNegativeEventCreated = false;
-                        eventAccelarations.Add(x);
-                        events.Add(eventAccelarations);
+                        eventAccelarations.Add(x.User_Acceleration_X);
+                        //events.Add(eventAccelarations);
+                        User_Driving_Events LaneChangeEvent = new User_Driving_Events();
+                        LaneChangeEvent.User_Id = x.User_Id;
+                        LaneChangeEvent.Event_Type_Id = Convert.ToInt32(EventType.Agressive_Lane_Change);
+                        LaneChangeEvent.Event_Time = x.TimeStamp;
+                        eventsList.Add(LaneChangeEvent);
                     }
                     else if (!isPositiveEventCreated)
                     {
                         isPositiveEventCreated = true;
-                        if (x > safetyThresholdPositive)
+                        if (x.User_Acceleration_X > safetyThresholdPositive)
                         {
-                            eventAccelarations.Add(x);
+                            eventAccelarations.Add(x.User_Acceleration_X);
                         }
 
                     }
@@ -67,28 +62,32 @@ namespace WebApplication1.Algorithims
                 }
 
                 //starting with negative values
-                if (x<eventThresholdNegative)
+                if (x.User_Acceleration_X < eventThresholdNegative)
                 {
                     if (isNegativeEventCreated)
                     {
 
-                        if (x<safetyThresholdNegative)
+                        if (x.User_Acceleration_X < safetyThresholdNegative)
                         {
-                            eventAccelarations.Add(x);
+                            eventAccelarations.Add(x.User_Acceleration_X);
                         }
                     }
                     else if (isPositiveEventCreated)
                     {
                         isPositiveEventCreated = false;
-                        eventAccelarations.Add(x);
-                        events.Add(eventAccelarations);
+                        eventAccelarations.Add(x.User_Acceleration_X);
+                        User_Driving_Events LaneChangeEvent = new User_Driving_Events();
+                        LaneChangeEvent.User_Id = x.User_Id;
+                        LaneChangeEvent.Event_Type_Id = Convert.ToInt32(EventType.Agressive_Lane_Change);
+                        LaneChangeEvent.Event_Time = x.TimeStamp;
+                        eventsList.Add(LaneChangeEvent);
                     }
                     else if (!isNegativeEventCreated)
                     {
                         isNegativeEventCreated = true;
-                        if (x<safetyThresholdNegative)
+                        if (x.User_Acceleration_X < safetyThresholdNegative)
                         {
-                            eventAccelarations.Add(x);
+                            eventAccelarations.Add(x.User_Acceleration_X);
                         }
                     }
                     else if (!isPositiveEventCreated)
@@ -96,27 +95,28 @@ namespace WebApplication1.Algorithims
 
                     }
                 }
-            }           
-        }
-
-        public int GetTotalLaneChangeEvents ()
-        {
-            Console.WriteLine("Total Events: " + events.Count);
-            foreach (List<double> xa in events)
-            {
-                foreach (double xaa in xa)
-                {
-                    Console.WriteLine(xaa);
-                }
             }
-            //Console.ReadKey();
-            return events.Count;
+            return eventsList;       
         }
 
-        public IList<IList<double>> GetLaneChangeEvents ()
-        {
-            CheckLaneChange();
-            return events;
-        }
+        //public int GetTotalLaneChangeEvents ()
+        //{
+        //    Console.WriteLine("Total Events: " + events.Count);
+        //    foreach (List<double> xa in events)
+        //    {
+        //        foreach (double xaa in xa)
+        //        {
+        //            Console.WriteLine(xaa);
+        //        }
+        //    }
+        //    //Console.ReadKey();
+        //    return events.Count;
+        //}
+
+        //public IList<IList<double>> GetLaneChangeEvents ()
+        //{
+        //    CheckLaneChange();
+        //    return events;
+        //}
     }
 }
