@@ -27,11 +27,6 @@ namespace WebApplication1.Repositories
             {
                 command.CommandText = "INSERT INTO [dbo].[User_Driving_Data]([User_Id],[Session_Id],[Frequency],[Street_Name],[Speed_Limit],[Longitude],[Latitude],[Horizontal_Accuracy],[Speed],[TimeStamp],[User_Acceleration_X],[User_Acceleration_Y],[User_Acceleration_Z],[Gravity_X],[Gravity_Y],[Gravity_Z],[Rotation_Rate_X],[Rotation_Rate_Y],[Rotation_Rate_Z],[Magnetic_Flied_X],[Magnetic_Field_Y],[Magnetic_Field_Z])" +
                                     " VALUES(@User_Id,@Session_Id,@Frequency,@Street_Name,@Speed_Limit,@Longitude,@Latitude,@Horizontal_Accuracy,@Speed,@TimeStamp,@User_Acceleration_X,@User_Acceleration_Y,@User_Acceleration_Z,@Gravity_X,@Gravity_Y,@Gravity_Z,@Rotation_Rate_X,@Rotation_Rate_Y,@Rotation_Rate_Z,@Magnetic_Flied_X,@Magnetic_Field_Y,@Magnetic_Field_Z)";
-
-
-               // command.CommandText = "INSERT INTO [dbo].[User_Driving_Data]([User_Id],[Session_Id],[Street_Name],[Speed_Limit],[Longitude],[Latitude],[Horizontal_Accuracy],[Speed],[Gravity_X],[Gravity_Y],[Gravity_Z],[Rotation_Rate_X],[Rotation_Rate_Y],[Rotation_Rate_Z],[Magnetic_Flied_X],[Magnetic_Field_Y],[Magnetic_Field_Z])" +
-               //                      " VALUES(@User_Id,@Session_Id,@Street_Name,@Speed_Limit,@Longitude,@Latitude,@Horizontal_Accuracy,@Speed,@Gravity_X,@Gravity_Y,@Gravity_Z,@Rotation_Rate_X,@Rotation_Rate_Y,@Rotation_Rate_Z,@Magnetic_Flied_X,@Magnetic_Field_Y,@Magnetic_Field_Z)";
-
                 command.Parameters.Add(command.CreateParameter("User_Id", tentity.User_Id));
                 command.Parameters.Add(command.CreateParameter("Session_Id", tentity.Session_Id));
                 //command.Parameters.Add(command.CreateParameter("Data_Id", tentity.Data_Id));
