@@ -362,6 +362,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Sql Script\insert_Events_type.txt" />
     <Content Include="Sql Script\Rp_Db.Sql" />
     <Content Include="Sql Script\Rp_new.sql" />
     <Content Include="Web.config">
