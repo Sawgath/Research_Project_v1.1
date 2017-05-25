@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using WebApplication1.Extensions;
 using WebApplication1.Models.DB;
+
 
 namespace WebApplication1.Repositories
 {
@@ -19,7 +21,17 @@ namespace WebApplication1.Repositories
 
         public override User_Driving_Events Insert(User_Driving_Events tentity)
         {
-            throw new NotImplementedException();
+            using (var command = _context.CreateCommand())
+            {
+                command.CommandText = "INSERT INTO [dbo].[User_Driving_Events]([Event_Time],[Session_Id],[Event_Type_Id])" +
+                                    " VALUES(@Event_Time,@Session_Id,@Event_Type_Id)";
+                command.Parameters.Add(command.CreateParameter("Event_Time", tentity.Event_Time));
+                command.Parameters.Add(command.CreateParameter("Event_Type_Id", tentity.Event_Type_Id));
+                command.Parameters.Add(command.CreateParameter("Session_Id", tentity.Session_Id));
+                return this.ToList(command).FirstOrDefault();
+
+            }
+
         }
 
         public override User_Driving_Events Update(User_Driving_Events tentity)
