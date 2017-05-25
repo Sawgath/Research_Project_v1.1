@@ -1,0 +1,5 @@
+﻿Insert Into Event_Type(Event_Type_Name)Values('Speeding_Event');
+Insert Into Event_Type(Event_Type_Name)Values('Sudden_Acceleration');
+Insert Into Event_Type(Event_Type_Name)Values('Sudden_Braking');
+Insert Into Event_Type(Event_Type_Name)Values('Agressive_Lane_Change');
+Insert Into Event_Type(Event_Type_Name)Values('Agressive_Turning');
