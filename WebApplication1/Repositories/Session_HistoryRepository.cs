@@ -47,6 +47,24 @@ namespace WebApplication1.Repositories
             }
         }
 
+        public Session_History UpdateWithScores(Session_History tentity)
+        {
+            using (var command = _context.CreateCommand())
+            {
+                command.CommandText = "UPDATE [dbo].[Session_History] SET Agressive_Lane_Change_Count=@Agressive_Lane_Change_Count, Agressive_Turning_Count=@Agressive_Turning_Count, " +
+                                      "Sudden_Acceleration_Count=@Sudden_Acceleration_Count, Sudden_Braking_Count=@Sudden_Braking_Count, Speeding_Event_Count=@Speeding_Event_Count, " +
+                                      "Session_Score=@Session_Score WHERE Session_Id=@sessionId";
+                command.Parameters.Add(command.CreateParameter("sessionId", tentity.Session_Id));
+                command.Parameters.Add(command.CreateParameter("Agressive_Lane_Change_Count", tentity.Agressive_Lane_Change_Count));
+                command.Parameters.Add(command.CreateParameter("Agressive_Turning_Count", tentity.Agressive_Turning_Count));
+                command.Parameters.Add(command.CreateParameter("Sudden_Acceleration_Count", tentity.Sudden_Acceleration_Count));
+                command.Parameters.Add(command.CreateParameter("Sudden_Braking_Count", tentity.Sudden_Braking_Count));
+                command.Parameters.Add(command.CreateParameter("Speeding_Event_Count", tentity.Speeding_Event_Count));
+                command.Parameters.Add(command.CreateParameter("Session_Score", tentity.Session_Score));
+                return this.ToList(command).FirstOrDefault();
+            }
+        }
+
         public IList<Session_History> getHistory(int userId)
         {
             using (var command = _context.CreateCommand())

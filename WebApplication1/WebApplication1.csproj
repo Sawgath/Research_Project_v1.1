@@ -265,8 +265,6 @@
     <Compile Include="Controllers\DataController.cs" />
     <Compile Include="Controllers\ProcessController.cs" />
     <Compile Include="Controllers\HistoryController.cs" />
-    <Compile Include="Controllers\StopController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Enums\EventType.cs" />
     <Compile Include="Extensions\IDataRecordExtensions.cs" />
     <Compile Include="Extensions\IDbCommandExtensions.cs" />

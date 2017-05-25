@@ -50,8 +50,20 @@ CREATE TABLE Session_History (
   Start_Time datetime NULL, 
   End_Time   datetime NULL, 
   Session_Score nvarchar(100) Null,
+  Speeding_Event_Count int Null,
+  Sudden_Acceleration_Count int Null,
+  Sudden_Braking_Count int Null,
+  Agressive_Lane_Change_Count int Null,
+  Agressive_Turning_Count int Null,
   PRIMARY KEY (Session_Id));
 ALTER TABLE User_Driving_Events ADD CONSTRAINT FKUser_Drivi117992 FOREIGN KEY (Event_Type_Id) REFERENCES Event_Type (Event_Type_Id) ON UPDATE Cascade ON DELETE Cascade;
 ALTER TABLE Session_History ADD CONSTRAINT FKSession_Hi512699 FOREIGN KEY (User_Id) REFERENCES [User] (User_Id);
 ALTER TABLE User_Driving_Data ADD CONSTRAINT FKUser_Drivi237016 FOREIGN KEY (Session_Id) REFERENCES Session_History (Session_Id);
 ALTER TABLE User_Driving_Events ADD CONSTRAINT FKUser_Drivi871005 FOREIGN KEY (Session_Id) REFERENCES Session_History (Session_Id);
+
+
+Insert Into Event_Type(Event_Type_Name)Values('Speeding_Event');
+Insert Into Event_Type(Event_Type_Name)Values('Sudden_Acceleration');
+Insert Into Event_Type(Event_Type_Name)Values('Sudden_Braking');
+Insert Into Event_Type(Event_Type_Name)Values('Agressive_Lane_Change');
+Insert Into Event_Type(Event_Type_Name)Values('Agressive_Turning');

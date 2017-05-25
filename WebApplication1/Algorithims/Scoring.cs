@@ -5,6 +5,7 @@ using System.Web;
 using WebApplication1.Models.DB;
 using WebApplication1.Enums;
 using WebApplication1.Models.JsonModel;
+using WebApplication1.Repositories;
 
 namespace WebApplication1.Algorithims
 {
@@ -67,6 +68,22 @@ namespace WebApplication1.Algorithims
             scoringModel.Sudden_Braking_Count = SuddenBrakingCount;
             scoringModel.Speeding_Event_Count = SpeedingCount;
             scoringModel.Session_Score = score;
+            
+            if (!eventList.Equals(null))
+            {
+                var factory = new DbConnectionFactory("testDatabase");
+                var context = new DbContext(factory);
+                var repo = new Session_HistoryRepository(context);
+                var sessionHistory = new Session_History();
+                sessionHistory.Agressive_Lane_Change_Count = LaneChangeCount;
+                sessionHistory.Agressive_Turning_Count = AggressiveTurningCount;
+                sessionHistory.Sudden_Acceleration_Count = SuddenAccelerationCount;
+                sessionHistory.Sudden_Braking_Count = SuddenBrakingCount;
+                sessionHistory.Speeding_Event_Count = SpeedingCount;
+                sessionHistory.Session_Score = score;
+                sessionHistory.Session_Id = eventList.ElementAt(0).Session_Id;
+                repo.UpdateWithScores(sessionHistory);
+            }
             return scoringModel;
         }
     }

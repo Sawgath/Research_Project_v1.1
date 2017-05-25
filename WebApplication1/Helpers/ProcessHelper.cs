@@ -86,8 +86,10 @@ namespace WebApplication1.Helpers
             var factory = new DbConnectionFactory("testDatabase");
             var context = new DbContext(factory);
             var repo = new User_Driving_EventsRepository(context);
-            //repo.Insert();
-
+            foreach (var ev in events)
+            {
+                repo.Insert(ev);
+            }
         }
 
         private void concatList(IList<User_Driving_Events> list)
