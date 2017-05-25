@@ -11,7 +11,6 @@ public class Acceleration
     private double eventThresholdPositve = 0.2;
     private double eventThresholdNegative = -0.2;
     private List<User_Driving_Events> eventAll = new List<User_Driving_Events>();
-    private int events;
 
     public IList<User_Driving_Events> Checkacc(IList<User_Driving_Data> DrivingData)
     {

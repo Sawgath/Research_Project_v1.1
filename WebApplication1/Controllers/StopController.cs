@@ -22,7 +22,7 @@ namespace WebApplication1.Controllers
                 processHelper.StopProcess(processData);
                 response = Request.CreateResponse(HttpStatusCode.OK, "Success");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 response = Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error");
             }

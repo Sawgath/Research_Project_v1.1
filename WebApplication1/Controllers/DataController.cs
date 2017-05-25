@@ -67,7 +67,7 @@ namespace WebApplication1.Controllers
                 aMap.Map_data(alist);
                 response = Request.CreateResponse(HttpStatusCode.OK, "Success");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 response = Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error");
             }

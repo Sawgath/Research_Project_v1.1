@@ -31,12 +31,12 @@ namespace WebApplication1.Helpers
                 InsertDrivingEvents(accelerationEvents);
                 var speedAlgo = new Speed();
                 var speedEvents = speedAlgo.GetSpeedData(dataList);
-                //speedevents returned here
+                InsertDrivingEvents(speedEvents);
                 var aggressiveTurningAlgo = new AgreesiveTurning();
                 var turnAndLaneChangeEvents = aggressiveTurningAlgo.CheckAgressiveTurning_And_LaneChange(dataList);       //lane change algo is run within aggressive turning
                 InsertDrivingEvents(turnAndLaneChangeEvents);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw new Exception("Failed to Retrieve data");
             }
@@ -52,7 +52,7 @@ namespace WebApplication1.Helpers
                 var list = repo.getHistory(histoyData.userID);
                 return list;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw new Exception("Failed to Retrieve data");
             }
@@ -71,7 +71,7 @@ namespace WebApplication1.Helpers
                 sessionHistory.End_time = DateTime.Now;
                 repo.Update(sessionHistory);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw new Exception("Failed to Retrieve data");
             }
