@@ -49,6 +49,7 @@ CREATE TABLE Session_History (
   User_Id    int NOT NULL, 
   Start_Time datetime NULL, 
   End_Time   datetime NULL, 
+  Session_Score nvarchar(100) Null,
   PRIMARY KEY (Session_Id));
 ALTER TABLE User_Driving_Events ADD CONSTRAINT FKUser_Drivi117992 FOREIGN KEY (Event_Type_Id) REFERENCES Event_Type (Event_Type_Id) ON UPDATE Cascade ON DELETE Cascade;
 ALTER TABLE Session_History ADD CONSTRAINT FKSession_Hi512699 FOREIGN KEY (User_Id) REFERENCES [User] (User_Id);
