@@ -21,22 +21,26 @@ namespace WebApplication1.Helpers
             dataList = repo.GetUserDrivingDataWithIdAndSessionId(processData.userID, processData.Session_Id);
         }
 
-        public void RunAlgorithms(ProcessData processData)
+        public ScoringModel RunAlgorithms(ProcessData processData)
         {
             try
             {
                 GetUserData(processData);
                 var accelerationAlgo = new Acceleration();
                 var accelerationEvents = accelerationAlgo.Checkacc(dataList);
-                InsertDrivingEvents(accelerationEvents);
+                concatList(accelerationEvents);
                 var speedAlgo = new Speed();
                 var speedEvents = speedAlgo.GetSpeedData(dataList);
-                InsertDrivingEvents(speedEvents);
+                concatList(speedEvents);
                 var aggressiveTurningAlgo = new AgreesiveTurning();
                 var turnAndLaneChangeEvents = aggressiveTurningAlgo.CheckAgressiveTurning_And_LaneChange(dataList);       //lane change algo is run within aggressive turning
-                InsertDrivingEvents(turnAndLaneChangeEvents);
+                concatList(turnAndLaneChangeEvents);
+                InsertDrivingEvents(eventsList);
+                var scoring = new Scoring();
+                var sessionScore = scoring.Score_Driving_Of_User(eventsList);
+                return sessionScore;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 throw new Exception("Failed to Retrieve data");
             }
@@ -84,6 +88,14 @@ namespace WebApplication1.Helpers
             var repo = new User_Driving_EventsRepository(context);
             //repo.Insert();
 
+        }
+
+        private void concatList(IList<User_Driving_Events> list)
+        {
+            foreach (var l in list)
+            {
+                eventsList.Add(l);
+            }
         }
     }
 }

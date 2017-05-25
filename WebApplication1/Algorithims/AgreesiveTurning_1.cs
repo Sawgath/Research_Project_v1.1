@@ -57,7 +57,7 @@ namespace WebApplication1.Algorithims
             }
             if (RemainderOfList != 0)
             {
-                for (var i = DatachuckSize; i < listSize+1; i++)
+                for (var i = DatachuckSize; i < listSize; i++)
                 {
                     DataChunkList.Add(Datalist.ElementAt(i));
                 }

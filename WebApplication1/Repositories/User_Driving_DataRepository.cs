@@ -88,7 +88,7 @@ namespace WebApplication1.Repositories
         {
             using (var command = _context.CreateCommand())
             {
-                command.CommandText = "SELECT * FROM [dbo].[User_Driving_Data] WHERE User_Id=@userid and Session_Id=sessionid";
+                command.CommandText = "SELECT * FROM [dbo].[User_Driving_Data] WHERE User_Id=@userid and Session_Id=@sessionid";
                 command.Parameters.Add(command.CreateParameter("userid", userId));
                 command.Parameters.Add(command.CreateParameter("sessionid", sessionId));
                 

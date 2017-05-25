@@ -294,6 +294,7 @@
     <Compile Include="Models\JsonModel\ProcessData.cs" />
     <Compile Include="Models\JsonModel\RotationRate.cs" />
     <Compile Include="Models\DB\User.cs" />
+    <Compile Include="Models\JsonModel\ScoringModel.cs" />
     <Compile Include="Models\JsonModel\UserAcceleration.cs" />
     <Compile Include="Models\JsonModel\LoginData.cs" />
     <Compile Include="Models\SpeedData.cs" />

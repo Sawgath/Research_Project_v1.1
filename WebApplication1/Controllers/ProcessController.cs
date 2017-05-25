@@ -11,6 +11,7 @@ namespace WebApplication1.Controllers
 {
     public class ProcessController : ApiController
     {
+        [Authorize]
         // GET: api/Process
         [HttpPost]
         public HttpResponseMessage post(ProcessData processData)
@@ -19,8 +20,9 @@ namespace WebApplication1.Controllers
             try
             {
                 ProcessHelper processHelper = new ProcessHelper();
-                processHelper.RunAlgorithms(processData);
-                response = Request.CreateResponse(HttpStatusCode.OK, "Success");
+                processHelper.StopProcess(processData);
+                var sessionScore = processHelper.RunAlgorithms(processData);
+                response = Request.CreateResponse(HttpStatusCode.OK, sessionScore);
             }
             catch (Exception)
             {
