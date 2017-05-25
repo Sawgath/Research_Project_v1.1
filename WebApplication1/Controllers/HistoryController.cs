@@ -11,6 +11,7 @@ namespace WebApplication1.Controllers
 {
     public class HistoryController : ApiController
     {
+        [Authorize]
         // POST: api/Stop
         [HttpPost]
         public HttpResponseMessage post(HistoryData historyData)
