@@ -49,7 +49,7 @@ namespace WebApplication1.Controllers
                     response = Request.CreateResponse(HttpStatusCode.BadRequest, new { success = false });
                 }
             }
-            catch (SqlException)
+            catch (SqlException ex)
             {
                 response = Request.CreateResponse("You haven't entered Username and Password");
             }
