@@ -22,7 +22,7 @@ namespace WebApplication1.Controllers
                 var list = processHelper.RunHistory(historyData);
                 response = Request.CreateResponse(HttpStatusCode.OK, list);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 response = Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error");
             }
