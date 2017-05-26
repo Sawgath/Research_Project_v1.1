@@ -38,7 +38,7 @@ namespace WebApplication1.Controllers
                     var user = CreateUser(model);
                     object dbUser;
 
-                    //Create token
+                    //Create token and save to database
                     var token = CreateToken(user[0], out dbUser);
                     User.SaveToken(user[0].User_Id, token);
                     response = Request.CreateResponse(new { dbUser, token });
@@ -49,9 +49,9 @@ namespace WebApplication1.Controllers
                     response = Request.CreateResponse(HttpStatusCode.BadRequest, new { success = false });
                 }
             }
-            catch (SqlException ex)
+            catch (SqlException)
             {
-                response = Request.CreateResponse("You haven't entered Username and Password");
+                response = Request.CreateResponse(HttpStatusCode.InternalServerError);
             }
             return response;
         }

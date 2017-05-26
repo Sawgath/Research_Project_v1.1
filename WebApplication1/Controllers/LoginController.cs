@@ -1,17 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web.Http;
 using WebApplication1.Models;
-using WebApplication1.Models.DB;
 using WebApplication1.Helpers;
-using JWT;
-using JWT.Serializers;
-using JWT.Algorithms;
-using System.Web.Script.Serialization;
 using System.Data.SqlClient;
 
 namespace WebApplication1.Controllers
@@ -47,7 +41,7 @@ namespace WebApplication1.Controllers
                     }
                     else
                     {
-                        if (model.Password != null)
+                        if ((!String.IsNullOrWhiteSpace(model.UserName))&&(!String.IsNullOrWhiteSpace(model.Password)))
                         {
                             var loginSuccess =
                               string.Equals(EncryptPassword(model.Password, existingUser[0].Salt),
@@ -59,19 +53,19 @@ namespace WebApplication1.Controllers
                             }
                             else
                             {
-                                response = Request.CreateResponse("Please Provide correct User Credentials");
+                                response = Request.CreateResponse(HttpStatusCode.Forbidden,"Please Provide correct User Credentials");
                             }
                         }
                         else
                         {
-                            response = Request.CreateResponse("Please provide the password");
+                            response = Request.CreateResponse(HttpStatusCode.Forbidden, "Password or Username not provided");
                         }
                     }
                     
                 }
                 catch (SqlException)
                 {
-                    response = Request.CreateResponse("Provide UserName");
+                    response = Request.CreateResponse(HttpStatusCode.InternalServerError);
                 }
             }
             else
