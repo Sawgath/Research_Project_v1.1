@@ -69,7 +69,7 @@ namespace WebApplication1.Algorithims
             scoringModel.Speeding_Event_Count = SpeedingCount;
             scoringModel.Session_Score = score;
             
-            if (!eventList.Equals(null))
+            if (!eventList.Equals(null) & eventList.Count>0 )
             {
                 var factory = new DbConnectionFactory("testDatabase");
                 var context = new DbContext(factory);
