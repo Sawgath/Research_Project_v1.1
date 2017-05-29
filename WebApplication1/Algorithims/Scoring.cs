@@ -19,7 +19,7 @@ namespace WebApplication1.Algorithims
         private int SpeedingCount = 0;
         private string score = null;
 
-        public ScoringModel Score_Driving_Of_User(IList<User_Driving_Events> eventList)
+        public ScoringModel Score_Driving_Of_User(IList<User_Driving_Events> eventList, string SessionId)
         {
             foreach (var evnt in eventList)
             {
@@ -69,7 +69,7 @@ namespace WebApplication1.Algorithims
             scoringModel.Speeding_Event_Count = SpeedingCount;
             scoringModel.Session_Score = score;
             
-            if (!eventList.Equals(null) & eventList.Count>0 )
+            if (!eventList.Equals(null))
             {
                 var factory = new DbConnectionFactory("testDatabase");
                 var context = new DbContext(factory);
@@ -81,7 +81,7 @@ namespace WebApplication1.Algorithims
                 sessionHistory.Sudden_Braking_Count = SuddenBrakingCount;
                 sessionHistory.Speeding_Event_Count = SpeedingCount;
                 sessionHistory.Session_Score = score;
-                sessionHistory.Session_Id = eventList.ElementAt(0).Session_Id;
+                sessionHistory.Session_Id = SessionId;
                 repo.UpdateWithScores(sessionHistory);
             }
             return scoringModel;
