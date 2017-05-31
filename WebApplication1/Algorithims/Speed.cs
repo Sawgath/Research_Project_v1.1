@@ -37,11 +37,15 @@ namespace WebApplication1.Algorithims
                     {
 
 
-
                     }
                     else if (flag == 1)
                     {
                         flag = 0;
+
+                    }
+                    else if (flag == 2)
+                    {
+
 
                         /////Unused ////////////////////////////////
                         //SpeedResultTimer aSpeedResultTimer = new SpeedResultTimer();
@@ -50,15 +54,17 @@ namespace WebApplication1.Algorithims
                         //aSpeedResultTimer.exceedTime = finishTimer.Value.Subtract(startTimer.Value);
                         //unsafeTimer.Add(aSpeedResultTimer);
                         ////////////////////////////////////////////
-                        sessionIdTemp = aDriving_Data.Session_Id;
-
-                        User_Driving_Events aEvent = new User_Driving_Events();
-                        aEvent.Event_Type_Id = (int)EventType.Speeding_Event;
-                        aEvent.Event_Time = startTime;
-                        aEvent.Session_Id = sessionIdTemp;
-                        eventList.Add(aEvent);
-
-
+                        //int count = finishTimer.Value.Subtract(startTimer.Value).Seconds;
+                        //if (count >= 5)
+                        //{
+                            flag = 0;
+                            sessionIdTemp = aDriving_Data.Session_Id;
+                            User_Driving_Events aEvent = new User_Driving_Events();
+                            aEvent.Event_Type_Id = (int)EventType.Speeding_Event;
+                            aEvent.Event_Time = startTime;
+                            aEvent.Session_Id = sessionIdTemp;
+                            eventList.Add(aEvent);
+                        //}
 
                     }
 
@@ -76,6 +82,7 @@ namespace WebApplication1.Algorithims
                     else if (flag == 1)
                     {
                         finishTimer = DateTime.Now;
+                        flag = 2;
                     }
                     
                 }
