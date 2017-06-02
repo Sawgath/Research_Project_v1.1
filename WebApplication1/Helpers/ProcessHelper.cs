@@ -17,8 +17,10 @@ namespace WebApplication1.Helpers
         {
             var factory = new DbConnectionFactory("testDatabase");
             var context = new DbContext(factory);
-            User_Driving_DataRepository repo = new User_Driving_DataRepository(context);
-            dataList = repo.GetUserDrivingDataWithIdAndSessionId(processData.userID, processData.Session_Id);
+            using (User_Driving_DataRepository repo = new User_Driving_DataRepository(context))
+            {
+                dataList = repo.GetUserDrivingDataWithIdAndSessionId(processData.userID, processData.Session_Id);
+            }
         }
 
         public ScoringModel RunAlgorithms(ProcessData processData)
@@ -53,9 +55,11 @@ namespace WebApplication1.Helpers
             {
                 var factory = new DbConnectionFactory("testDatabase");
                 var context = new DbContext(factory);
-                var repo = new Session_HistoryRepository(context);
-                var list = repo.getHistory(histoyData.userID);
-                return list;
+                using (var repo = new Session_HistoryRepository(context))
+                {
+                    var list = repo.getHistory(histoyData.userID);
+                    return list;
+                }
             }
             catch (Exception)
             {
@@ -69,12 +73,14 @@ namespace WebApplication1.Helpers
             {
                 var factory = new DbConnectionFactory("testDatabase");
                 var context = new DbContext(factory);
-                var repo = new Session_HistoryRepository(context);
-                var sessionHistory = new Session_History();
-                sessionHistory.Session_Id = processData.Session_Id;
-                sessionHistory.User_Id = processData.userID;
-                sessionHistory.End_time = DateTime.Now;
-                repo.Update(sessionHistory);
+                using (var repo = new Session_HistoryRepository(context))
+                {
+                    var sessionHistory = new Session_History();
+                    sessionHistory.Session_Id = processData.Session_Id;
+                    sessionHistory.User_Id = processData.userID;
+                    sessionHistory.End_time = DateTime.Now;
+                    repo.Update(sessionHistory);
+                } 
             }
             catch (Exception)
             {
@@ -86,10 +92,12 @@ namespace WebApplication1.Helpers
         {
             var factory = new DbConnectionFactory("testDatabase");
             var context = new DbContext(factory);
-            var repo = new User_Driving_EventsRepository(context);
-            foreach (var ev in events)
+            using (var repo = new User_Driving_EventsRepository(context))
             {
-                repo.Insert(ev);
+                foreach (var ev in events)
+                {
+                    repo.Insert(ev);
+                }
             }
         }
 

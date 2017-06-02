@@ -84,8 +84,10 @@ namespace WebApplication1.Helpers
         {
             var factory = new DbConnectionFactory("testDatabase");
             var context = new DbContext(factory);
-            var arepo = new UserRepository(context);
-            return arepo.GetAll();
+            using (var arepo = new UserRepository(context))
+            {
+                return arepo.GetAll();
+            }
         }
         public bool CheckLoginData(User tentity)
         {

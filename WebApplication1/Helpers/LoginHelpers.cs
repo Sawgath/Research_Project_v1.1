@@ -20,13 +20,16 @@ namespace WebApplication1.Helpers
             //aUser.ActiveStartTime = DateTime.UtcNow.ToString("o");
             var factory = new DbConnectionFactory("testDatabase");
             var context = new DbContext(factory);
-            UserRepository arepo = new UserRepository(context);
-            //arepo.CheckLoginData(aUser);
-            if (arepo.CheckLoginData(aUser))
+            using (UserRepository arepo = new UserRepository(context))
             {
-                arepo.MakeActive(aUser);
+                if (arepo.CheckLoginData(aUser))
+                {
+                    arepo.MakeActive(aUser);
+
+                }
 
             }
+                //arepo.CheckLoginData(aUser);
         }
         public IList<User> RegisterHelpers(UserRegister userdata)
         {
@@ -39,9 +42,10 @@ namespace WebApplication1.Helpers
             user.Email= userdata.Email; 
             var factory = new DbConnectionFactory("testDatabase");
             var context = new DbContext(factory);
-            UserRepository arepo = new UserRepository(context);
-            IList<User> existinguserlist= arepo.CheckExistingUser(user.UserName,user.Email).ToList();
-            return existinguserlist;
+            using (UserRepository arepo = new UserRepository(context))
+            {
+                return arepo.CheckExistingUser(user.UserName, user.Email).ToList();
+            }
         }
         public IList<User> CheckUser(UserLogin userdata)
         {
@@ -58,37 +62,42 @@ namespace WebApplication1.Helpers
         {
             var factory = new DbConnectionFactory("testDatabase");
             var context = new DbContext(factory);
-            UserRepository arepo = new UserRepository(context);
-            arepo.Insert(NewUser);
+            using (UserRepository arepo = new UserRepository(context))
+            {
+                arepo.Insert(NewUser);
+            }
         }
 
         public List<User> ReturnNewUSer(string username)
         {
             var factory = new DbConnectionFactory("testDatabase");
             var context = new DbContext(factory);
-            UserRepository arepo = new UserRepository(context);
-            var newuser= arepo.Retrurn_NewUser_OnRegister(username);
-            return newuser.ToList();
-            
+            using (UserRepository arepo = new UserRepository(context))
+            {
+                var newuser = arepo.Retrurn_NewUser_OnRegister(username);
+                return newuser.ToList();
+            }
         }
 
         public void SaveToken(int user_id, string token)
         {
             var factory = new DbConnectionFactory("testDatabase");
             var context = new DbContext(factory);
-            UserRepository arepo = new UserRepository(context);
-            var newuser = arepo.TokenSaver(user_id, token);
-            
+            using (UserRepository arepo = new UserRepository(context))
+            {
+                var newuser = arepo.TokenSaver(user_id, token);
+            }
         }
 
         public bool checktokens(string token, int user_id)
         {
             var factory = new DbConnectionFactory("testDatabase");
             var context = new DbContext(factory);
-            UserRepository arepo = new UserRepository(context);
-            var newuser = arepo.checktoken(token, user_id);
-            return newuser;
-
+            using (UserRepository arepo = new UserRepository(context))
+            {
+                var newuser = arepo.checktoken(token, user_id);
+                return newuser;
+            }
         }
 
     }
