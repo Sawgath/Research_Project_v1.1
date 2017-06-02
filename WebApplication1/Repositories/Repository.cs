@@ -6,7 +6,7 @@ using WebApplication1.Extensions;
 
 namespace WebApplication1.Repositories
 {
-    public abstract class Repository<TEntity> where TEntity : new()
+    public abstract class Repository<TEntity> : IDisposable where TEntity : new()
     {
 
         protected DbContext _context;
@@ -60,7 +60,25 @@ namespace WebApplication1.Repositories
         public abstract TEntity Insert(TEntity tentity);
         public abstract TEntity Update(TEntity tentity);
         public abstract TEntity Delete(TEntity tentity);
-    }
 
+        private bool disposed = false;
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!this.disposed)
+            {
+                if (disposing)
+                {
+                    _context.Dispose();
+                }
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+    }
 
 }

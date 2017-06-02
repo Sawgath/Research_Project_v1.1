@@ -7,7 +7,7 @@ using WebApplication1.Interfaces;
 
 namespace WebApplication1.Repositories
 {
-    public class DbUnitOfWork : IUnitOfWork
+    public class DbUnitOfWork : IUnitOfWork, IDisposable
     {
         private IDbTransaction _transaction;
         private readonly Action<DbUnitOfWork> _rolledBack;
@@ -23,16 +23,16 @@ namespace WebApplication1.Repositories
 
         public IDbTransaction Transaction { get; private set; }
 
-        public void Dispose()
-        {
-            if (_transaction == null)
-                return;
+        //public void Dispose()
+        //{
+        //    if (_transaction == null)
+        //        return;
 
-            _transaction.Rollback();
-            _transaction.Dispose();
-            _rolledBack(this);
-            _transaction = null;
-        }
+        //    _transaction.Rollback();
+        //    _transaction.Dispose();
+        //    _rolledBack(this);
+        //    _transaction = null;
+        //}
 
         public void SaveChanges()
         {
@@ -42,6 +42,25 @@ namespace WebApplication1.Repositories
             _transaction.Commit();
             _committed(this);
             _transaction = null;
+        }
+
+        private bool disposed = false;
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!this.disposed)
+            {
+                if (disposing)
+                {
+                    _transaction.Dispose();
+                }
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

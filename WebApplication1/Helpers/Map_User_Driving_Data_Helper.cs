@@ -42,22 +42,34 @@ namespace WebApplication1.Helpers
             var factory = new DbConnectionFactory("testDatabase");
             var context = new DbContext(factory);
 
-            var sessionHistoryRepo = new Session_HistoryRepository(context);
-
-            bool flag = sessionHistoryRepo.checkSession(aDrivingData.Session_Id);
+            //Session_HistoryRepository sessionHistoryRepo;
+            bool flag;
+            using (var sessionHistoryRepo = new Session_HistoryRepository(context))
+            {
+                flag = sessionHistoryRepo.checkSession(aDrivingData.Session_Id);
+            }
             if (flag)
             {
-                var sessionHistory = new Session_History();
-                sessionHistory.Session_Id = aDrivingData.Session_Id;
+                var factory1 = new DbConnectionFactory("testDatabase");
+                var context1 = new DbContext(factory1);
+                using (var sessionHistoryRepo2 = new Session_HistoryRepository(context1))
+                {
+                    var sessionHistory = new Session_History();
+                    sessionHistory.Session_Id = aDrivingData.Session_Id;
                 sessionHistory.User_Id = aDrivingData.User_Id;
                 sessionHistory.Start_time = DateTime.Now;
-                sessionHistoryRepo.Insert(sessionHistory);
+                sessionHistoryRepo2.Insert(sessionHistory);
+
+                }
 
             }
+            var factory2 = new DbConnectionFactory("testDatabase");
+            var context2 = new DbContext(factory2);
+            using (User_Driving_DataRepository arepo = new User_Driving_DataRepository(context2))
+            {
+                arepo.Insert(aDrivingData);
+            }
 
-
-            User_Driving_DataRepository arepo = new User_Driving_DataRepository(context);
-            
             //////////////////////////////////////////////////Username
             //If you want use username instead of userid -------(change json model userid-> username)
             //
@@ -67,7 +79,6 @@ namespace WebApplication1.Helpers
             //aDrivingData.User_Id = untid;
             ////////////////////////////////////////////////
 
-            arepo.Insert(aDrivingData);
         }
         public IList<User> getAllUserData()
         {

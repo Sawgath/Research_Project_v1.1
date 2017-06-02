@@ -8,7 +8,7 @@ using WebApplication1.Interfaces;
 
 namespace WebApplication1.Repositories
 {
-    public class DbContext
+    public class DbContext : IDisposable
     {
 
         private readonly IDbConnection _connection;
@@ -53,9 +53,30 @@ namespace WebApplication1.Repositories
             _rwLock.ExitWriteLock();
         }
 
+        //public void Dispose()
+        //{
+        //    _connection.Dispose();
+        //}
+
+        private bool disposed = false;
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!this.disposed)
+            {
+                if (disposing)
+                {
+                    
+                    _rwLock.Dispose();
+                    _connection.Close();
+                }
+            }
+        }
+
         public void Dispose()
         {
-            _connection.Dispose();
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 
