@@ -37,6 +37,9 @@ namespace WebApplication1.Helpers
                 var aggressiveTurningAlgo = new AgreesiveTurning();
                 var turnAndLaneChangeEvents = aggressiveTurningAlgo.CheckAgressiveTurning_And_LaneChange(dataList);       //lane change algo is run within aggressive turning
                 concatList(turnAndLaneChangeEvents);
+                var laneChangeAlgo = new LaneChange();
+                var laneChangeEvents = laneChangeAlgo.CheckLaneChange(dataList);
+                concatList(laneChangeEvents);
                 InsertDrivingEvents(eventsList);
                 var SessionId = processData.Session_Id;
                 var scoring = new Scoring();

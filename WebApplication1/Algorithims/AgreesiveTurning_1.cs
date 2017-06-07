@@ -41,16 +41,6 @@ namespace WebApplication1.Algorithims
                     events.Event_Time = FirstEntry.TimeStamp;
                     Events.Add(events);
                 }
-                else 
-                if (Heading > 0 & Heading < 20 )
-                {
-                    var laneChangeAlgo = new LaneChange();
-                    var laneChangeEvents = laneChangeAlgo.CheckLaneChange(DataChunkList);
-                    foreach (var e in laneChangeEvents)
-                    {
-                        Events.Add(e);
-                    }
-                }
                 FirstEntry = null;
                 LastEntry = null;
                 DataChunkList.Clear();
@@ -74,16 +64,6 @@ namespace WebApplication1.Algorithims
                     events.Event_Type_Id = Convert.ToInt32(EventType.Agressive_Turning);
                     events.Event_Time = FirstEntry.TimeStamp;
                     Events.Add(events);
-                }
-                else
-                if (Heading > 0 & Heading < 20)
-                {
-                    var laneChangeAlgo = new LaneChange();
-                    var laneChangeEvents = laneChangeAlgo.CheckLaneChange(DataChunkList);
-                    foreach (var e in laneChangeEvents)
-                    {
-                        Events.Add(e);
-                    }
                 }
                 FirstEntry = null;
                 LastEntry = null;
