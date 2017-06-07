@@ -24,7 +24,7 @@ namespace WebApplication1.Controllers
                 var sessionScore = processHelper.RunAlgorithms(processData);
                 response = Request.CreateResponse(HttpStatusCode.OK, sessionScore);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 response = Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error");
             }

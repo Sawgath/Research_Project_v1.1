@@ -45,8 +45,6 @@ namespace WebApplication1.Algorithims
                     }
                     else if (flag == 2)
                     {
-
-
                         /////Unused ////////////////////////////////
                         //SpeedResultTimer aSpeedResultTimer = new SpeedResultTimer();
                         //aSpeedResultTimer.startTime = startTimer;
@@ -54,9 +52,9 @@ namespace WebApplication1.Algorithims
                         //aSpeedResultTimer.exceedTime = finishTimer.Value.Subtract(startTimer.Value);
                         //unsafeTimer.Add(aSpeedResultTimer);
                         ////////////////////////////////////////////
-                        //int count = finishTimer.Value.Subtract(startTimer.Value).Seconds;
-                        //if (count >= 5)
-                        //{
+                        int count = finishTimer.Value.Subtract(startTimer.Value).Seconds;
+                        if (count >= 2)
+                        {
                             flag = 0;
                             sessionIdTemp = aDriving_Data.Session_Id;
                             User_Driving_Events aEvent = new User_Driving_Events();
@@ -64,7 +62,7 @@ namespace WebApplication1.Algorithims
                             aEvent.Event_Time = startTime;
                             aEvent.Session_Id = sessionIdTemp;
                             eventList.Add(aEvent);
-                        //}
+                        }
 
                     }
 
@@ -76,19 +74,20 @@ namespace WebApplication1.Algorithims
                     if (flag == 0)
                     {
                         startTime = aDriving_Data.TimeStamp;
-                        startTimer = DateTime.Now;
+                        //startTimer = DateTime.Now;
+                        startTimer = aDriving_Data.TimeStamp;
                         flag = 1;
                     }
                     else if (flag == 1)
                     {
-                        finishTimer = DateTime.Now;
+                        finishTimer = aDriving_Data.TimeStamp;
                         flag = 2;
                     }
                     
                 }
             }
 
-            if (flag == 1)
+            if (flag == 2)
             {
                 User_Driving_Events aEvent = new User_Driving_Events();
                 aEvent.Event_Type_Id = (int)EventType.Speeding_Event;
