@@ -49,14 +49,6 @@ namespace WebApplication1.Repositories
             return objT;
         }
 
-        public IList<TEntity> GetAll()
-        {
-            using (var command = _context.CreateCommand())
-            {
-                command.CommandText = @"SELECT * FROM " + typeof(TEntity).Name.ToString();
-                return ToList(command).ToList();
-            }
-        }
         public abstract TEntity Insert(TEntity tentity);
         public abstract TEntity Update(TEntity tentity);
         public abstract TEntity Delete(TEntity tentity);
