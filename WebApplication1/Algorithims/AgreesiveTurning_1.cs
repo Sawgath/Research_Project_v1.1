@@ -9,7 +9,7 @@ namespace WebApplication1.Algorithims
 {   
     public class AgreesiveTurning
     {
-        public IList<User_Driving_Events> CheckAgressiveTurning_And_LaneChange(IList<User_Driving_Data> Datalist)
+        public IList<User_Driving_Events> CheckAgressiveTurning(IList<User_Driving_Data> Datalist)
         {
             var frequency = Datalist.FirstOrDefault().Frequency;
             var listSize = Datalist.Count();
@@ -19,57 +19,71 @@ namespace WebApplication1.Algorithims
             IList<User_Driving_Events> AggressiveTurning_EventsList = new List<User_Driving_Events>();
             IList<User_Driving_Events> LaneChange_EventsList = new List<User_Driving_Events>();
             IList<User_Driving_Events> Events = new List<User_Driving_Events>();
-            double AgressiveTurningEventCount=0;
-            //double LaneChangeEventCount = 0;
-            //LaneChange lanechange = new LaneChange();
-            for (int i=0; i<DatachuckSize; i=i+frequency)
+            if (frequency == 1)
             {
-                for(int j=i; j<i+frequency; j++)
+                for(int i=1;i<listSize;i++)
                 {
-                    DataChunkList.Add(Datalist.ElementAt(j));
+                    var FirstEntry= Datalist.ElementAt(i - 1);
+                    var LastEntry=  Datalist.ElementAt(i);
+                    var Heading = TurningAngle(FirstEntry, LastEntry);
+                    if (Heading > 30)
+                    {
+                        //Create aggresive turning event
+                        User_Driving_Events events = new User_Driving_Events();
+                        events.Session_Id = FirstEntry.Session_Id;
+                        events.Event_Type_Id = Convert.ToInt32(EventType.Agressive_Turning);
+                        events.Event_Time = FirstEntry.TimeStamp;
+                        Events.Add(events);
+                    }
                 }
-                var FirstEntry = DataChunkList.First();
-                var LastEntry = DataChunkList.Last();
-                var Heading = TurningAngle(FirstEntry, LastEntry);
-                if(Heading > 30)
-                {
-                    //Create aggresive turning event
-                    AgressiveTurningEventCount++;
-                    User_Driving_Events events = new User_Driving_Events();
-                    events.Session_Id = FirstEntry.Session_Id;
-                    events.Event_Type_Id = Convert.ToInt32(EventType.Agressive_Turning);
-                    events.Event_Time = FirstEntry.TimeStamp;
-                    Events.Add(events);
-                }
-                FirstEntry = null;
-                LastEntry = null;
-                DataChunkList.Clear();
             }
-            if (RemainderOfList != 0)
+            else
             {
-                for (var i = DatachuckSize; i < listSize; i++)
+                for (int i = 0; i < DatachuckSize; i = i + frequency)
                 {
-                    DataChunkList.Add(Datalist.ElementAt(i));
+                    for (int j = i; j < i + frequency; j++)
+                    {
+                        DataChunkList.Add(Datalist.ElementAt(j));
+                    }
+                    var FirstEntry = DataChunkList.First();
+                    var LastEntry = DataChunkList.Last();
+                    var Heading = TurningAngle(FirstEntry, LastEntry);
+                    if (Heading > 30)
+                    {
+                        //Create aggresive turning event
+                        User_Driving_Events events = new User_Driving_Events();
+                        events.Session_Id = FirstEntry.Session_Id;
+                        events.Event_Type_Id = Convert.ToInt32(EventType.Agressive_Turning);
+                        events.Event_Time = FirstEntry.TimeStamp;
+                        Events.Add(events);
+                    }
+                    FirstEntry = null;
+                    LastEntry = null;
+                    DataChunkList.Clear();
                 }
-                var FirstEntry = DataChunkList.First();
-                var LastEntry = DataChunkList.Last();
-                var Heading = TurningAngle(FirstEntry, LastEntry);
-                if (Heading >= 30)
+                if (RemainderOfList != 0)
                 {
-                    //Create aggresive turning event
-                    AgressiveTurningEventCount++;
-                    AgressiveTurningEventCount++;
-                    User_Driving_Events events = new User_Driving_Events();
-                    events.Session_Id = FirstEntry.Session_Id;
-                    events.Event_Type_Id = Convert.ToInt32(EventType.Agressive_Turning);
-                    events.Event_Time = FirstEntry.TimeStamp;
-                    Events.Add(events);
+                    for (var i = DatachuckSize; i < listSize; i++)
+                    {
+                        DataChunkList.Add(Datalist.ElementAt(i));
+                    }
+                    var FirstEntry = DataChunkList.First();
+                    var LastEntry = DataChunkList.Last();
+                    var Heading = TurningAngle(FirstEntry, LastEntry);
+                    if (Heading >= 30)
+                    {
+                        //Create aggresive turning event
+                        User_Driving_Events events = new User_Driving_Events();
+                        events.Session_Id = FirstEntry.Session_Id;
+                        events.Event_Type_Id = Convert.ToInt32(EventType.Agressive_Turning);
+                        events.Event_Time = FirstEntry.TimeStamp;
+                        Events.Add(events);
+                    }
+                    FirstEntry = null;
+                    LastEntry = null;
+                    DataChunkList.Clear();
                 }
-                FirstEntry = null;
-                LastEntry = null;
-                DataChunkList.Clear();
             }
-
             return Events;
         }
         

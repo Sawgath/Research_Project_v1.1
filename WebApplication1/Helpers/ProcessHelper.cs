@@ -35,8 +35,8 @@ namespace WebApplication1.Helpers
                 var speedEvents = speedAlgo.GetSpeedData(dataList);
                 concatList(speedEvents);
                 var aggressiveTurningAlgo = new AgreesiveTurning();
-                var turnAndLaneChangeEvents = aggressiveTurningAlgo.CheckAgressiveTurning_And_LaneChange(dataList);       //lane change algo is run within aggressive turning
-                concatList(turnAndLaneChangeEvents);
+                var turningEvents = aggressiveTurningAlgo.CheckAgressiveTurning(dataList);       //lane change algo is run within aggressive turning
+                concatList(turningEvents);
                 var laneChangeAlgo = new LaneChange();
                 var laneChangeEvents = laneChangeAlgo.CheckLaneChange(dataList);
                 concatList(laneChangeEvents);
