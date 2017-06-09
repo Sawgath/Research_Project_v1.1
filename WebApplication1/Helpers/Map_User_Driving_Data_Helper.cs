@@ -80,15 +80,7 @@ namespace WebApplication1.Helpers
             ////////////////////////////////////////////////
 
         }
-        public IList<User> getAllUserData()
-        {
-            var factory = new DbConnectionFactory("testDatabase");
-            var context = new DbContext(factory);
-            using (var arepo = new UserRepository(context))
-            {
-                return arepo.GetAll();
-            }
-        }
+        
         public bool CheckLoginData(User tentity)
         {
             throw new NotImplementedException();

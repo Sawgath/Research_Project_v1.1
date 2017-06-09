@@ -75,15 +75,7 @@ namespace WebApplication1.Controllers
             return response;
         }
 
-        [Authorize]
-        [Route("api/Data/{id}")]
-        [HttpGet]
-        public IList<User> Get(int id)
-        {
-            var helper = new Map_User_Driving_Data_Helper();
-            var list = helper.getAllUserData();
-            return list;
-        }
+        
 
     }
 }
