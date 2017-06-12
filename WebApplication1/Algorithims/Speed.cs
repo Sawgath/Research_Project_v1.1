@@ -65,7 +65,13 @@ namespace WebApplication1.Algorithims
                         sessionIdTemp = aDriving_Data.Session_Id;
                         finishTimer = aDriving_Data.TimeStamp;
                         flag = 2;
-                    }                 
+                    }
+                    else if (flag == 2)
+                    {
+                        sessionIdTemp = aDriving_Data.Session_Id;
+                        finishTimer = aDriving_Data.TimeStamp;
+                        flag = 2;
+                    }
                 }
             }
 
