@@ -37,7 +37,7 @@ namespace WebApplication1.Algorithims
                     }
                     else if (flag == 2)
                     {
-                        int count = finishTimer.Value.Subtract(startTimer.Value).Seconds;
+                        double count = finishTimer.Value.Subtract(startTimer.Value).TotalSeconds;
                         if (count >= 2)
                         {
                             flag = 0;
@@ -78,11 +78,15 @@ namespace WebApplication1.Algorithims
 
             if (flag == 2)
             {
-                User_Driving_Events aEvent = new User_Driving_Events();
-                aEvent.Event_Type_Id = (int)EventType.Speeding_Event;
-                aEvent.Event_Time = startTime;
-                aEvent.Session_Id = sessionIdTemp;
-                eventList.Add(aEvent);
+                double count = finishTimer.Value.Subtract(startTimer.Value).TotalSeconds;
+                if (count >= 2)
+                {
+                    User_Driving_Events aEvent = new User_Driving_Events();
+                    aEvent.Event_Type_Id = (int)EventType.Speeding_Event;
+                    aEvent.Event_Time = startTime;
+                    aEvent.Session_Id = sessionIdTemp;
+                    eventList.Add(aEvent);
+                }
             }
 
             return eventList;
