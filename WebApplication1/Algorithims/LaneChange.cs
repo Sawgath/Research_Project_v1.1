@@ -12,8 +12,8 @@ namespace WebApplication1.Algorithims
         private double eventThresholdPositve = 0.05;
         private double eventThresholdNegative = -0.05;
 
-        private double safetyThresholdPositive = 0.1;
-        private double safetyThresholdNegative = -0.1;
+        private double safetyThresholdPositive = 0.3;
+        private double safetyThresholdNegative = -0.3;
 
         private bool isPositiveEventCreated = false;
         private bool isNegativeEventCreated = false;

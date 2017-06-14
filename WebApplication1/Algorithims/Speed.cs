@@ -33,6 +33,7 @@ namespace WebApplication1.Algorithims
                     else if (flag == 1)
                     {
                         flag = 0;
+
                     }
                     else if (flag == 2)
                     {
